@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>pchła — testy</title>
+    <style>
+      body { font: 15px/1.5 -apple-system, system-ui, sans-serif; max-width: 760px; margin: 32px auto; padding: 0 16px; color-scheme: light dark; }
+      h2 { font-size: 16px; margin: 22px 0 6px; }
+      .ok { color: #1f9d55; }
+      .fail { color: #e0352b; font-weight: 600; }
+      pre { margin: 2px 0 8px 22px; white-space: pre-wrap; color: #e0352b; }
+      #sum { font-size: 20px; font-weight: 700; }
+    </style>
+  </head>
+  <body>
+    <h1>pchła — testy logiki</h1>
+    <div id="sum">Uruchamiam…</div>
+    <div id="out"></div>
+    <script type="module">
+      import { runAll } from './all.js';
+      const data = await (await fetch('../data/przepisy.json')).json();
+      const results = runAll(data);
+      const out = document.getElementById('out');
+      let group = '';
+      for (const r of results) {
+        if (r.group !== group) {
+          group = r.group;
+          out.append(Object.assign(document.createElement('h2'), { textContent: group }));
+        }
+        out.append(Object.assign(document.createElement('div'), { className: r.ok ? 'ok' : 'fail', textContent: `${r.ok ? '✓' : '✗'} ${r.name}` }));
+        if (!r.ok) out.append(Object.assign(document.createElement('pre'), { textContent: r.error }));
+      }
+      const failed = results.filter((r) => !r.ok).length;
+      const sum = document.getElementById('sum');
+      sum.textContent = `${results.length - failed}/${results.length} testów OK`;
+      sum.className = failed ? 'fail' : 'ok';
+    </script>
+  </body>
+</html>

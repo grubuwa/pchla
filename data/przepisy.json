@@ -1,0 +1,5537 @@
+{
+ "meta": {
+  "title": "Baza danych do aplikacji planowania posiłków — Paweł",
+  "version": "1.0",
+  "created": "2026-10-10",
+  "language": "pl",
+  "notes": "Wartości odżywcze i ceny są orientacyjne (na 100 g produktu w stanie ważenia: suche kasze/ryż/makaron, surowe mięso, odsączone puszki). Ceny Lidl/Biedronka, październik 2026 — edytowalne w aplikacji."
+ },
+ "targets": {
+  "kcalPerDay": 2000,
+  "kcalRange": [
+   1900,
+   2100
+  ],
+  "proteinG": [
+   130,
+   160
+  ],
+  "fiberGmin": 30,
+  "satFatGmax": 22,
+  "stepsGoal": 9000,
+  "weighIns": "1× w tygodniu, sobota rano, na czczo",
+  "mealSplit": {
+   "śniadanie": 420,
+   "lunch": 620,
+   "przekąska": 210,
+   "kolacja": 500,
+   "przekąska wieczorna": 150,
+   "kawa/mleko": 50
+  },
+  "weight": {
+   "start": 120,
+   "stage1": 108,
+   "longTerm": 84,
+   "unit": "kg"
+  }
+ },
+ "schedule": {
+  "weekdays": {
+   "wakeUp": "06:30",
+   "leaveHome": "07:20",
+   "breakfast": "08:30",
+   "lunch": "12:30",
+   "snack": "15:00",
+   "backHome": "17:15",
+   "dinner": "18:00",
+   "eveningSnack": "21:30",
+   "kitchenClosed": "22:00",
+   "sleepGoal": "23:00"
+  },
+  "planWeek": "niedziela–sobota",
+  "planningDay": "sobota (rano)",
+  "shoppingTrips": [
+   "sobota — duże zakupy",
+   "środa po pracy — świeże (mięso, sałaty, zioła)"
+  ],
+  "cookingSessions": [
+   {
+    "day": "niedziela",
+    "what": "lunch A — 4 porcje: nd ciepły posiłek + pn, wt, śr lunch",
+    "maxTimeMin": 120
+   },
+   {
+    "day": "środa",
+    "what": "lunch B — 4 porcje: śr kolacja (lub z dziewczyną) + czw, pt lunch + sob ciepły posiłek",
+    "maxTimeMin": 60
+   }
+  ],
+  "weekend": "proste śniadanie + 1 ciepły posiłek (porcja lunchu) + lekka kolacja; zjazd stacjonarny ≈1×/mies. → kanapki do zabrania"
+ },
+ "rules": [
+  "Brak 'wolnego posiłku' — pełna struktura 7 dni.",
+  "Ten sam lunch maks. 3 dni z rzędu; 2 różne lunche w tygodniu (A i B).",
+  "Lunch nie powtarza się częściej niż co 3 tygodnie, jeśli baza na to pozwala.",
+  "Ryba ≥1–2× w tygodniu, w formie bez gotowania (tuńczyk, łosoś wędzony, makrela wędzona).",
+  "Rośliny strączkowe ≥3× w tygodniu.",
+  "Płatki owsiane ≥3× w tygodniu (beta-glukan, LDL).",
+  "Orzechy (ok. 10–20 g) codziennie lub prawie codziennie.",
+  "Tłuszcz: olej rzepakowy / oliwa; mięso chude; drób bez skóry; ser żółty light i w małych ilościach.",
+  "Jajka na twardo — nie do pracy (tylko w domu).",
+  "Kolacje lekkie, 10–20 min; ciepły 'obiad' jest w lunchu.",
+  "Gdy jest dziewczyna (kolacja w tygodniu / weekend): danie z wheatMain=false albo z zamiennikiem (wheatSwap); porcje ×2.",
+  "Zamrażarka mała i współdzielona — mrożenie tylko awaryjne (maks. 2–3 porcje).",
+  "Lodówka: dania z lunchu maks. 3 dni od ugotowania.",
+  "Preferuj kombinacje, które zużywają całe opakowania (np. 2 tacki kurczaka = lunch A + wrap).",
+  "Budżet: zużycie 200–300 zł/tydzień (cel ~220 zł)."
+ ],
+ "preferences": {
+  "likes": [
+   "pierś i udka z kurczaka",
+   "karkówka (rzadko — tł. nasycone)",
+   "mielona wołowina/wieprzowina",
+   "szynka",
+   "jajka",
+   "nabiał (serek wiejski, twaróg, skyr, jogurt, kefir, mozzarella, feta, halloumi)",
+   "ciecierzyca, fasola, edamame, hummus",
+   "brokuł, kalafior, cukinia, bakłażan, papryka, szpinak, kapusta, marchew, pieczarki, fasolka, groszek, kukurydza, pomidory, sałata",
+   "ziemniaki, bataty, ryż, kasza gryczana, udon/soba, tortille, chleb żytni, płatki owsiane",
+   "owoce: jabłka, gruszki, banany, borówki, cytrusy",
+   "ostre, kolendra, curry, imbir, koperek, dużo czosnku, teriyaki, wędzona papryka, orzechy"
+  ],
+  "ok": [
+   "indyk",
+   "schab",
+   "wołowina gulaszowa",
+   "kiełbasa drobiowa",
+   "łosoś",
+   "tuńczyk",
+   "makrela/śledź",
+   "wątróbka",
+   "soczewica",
+   "tofu",
+   "tempeh",
+   "jarmuż",
+   "buraki",
+   "dynia",
+   "por/seler",
+   "ogórki",
+   "rzodkiewka",
+   "awokado",
+   "kiszona kapusta",
+   "kasza jaglana, pęczak, bulgur, makaron pełnoziarnisty"
+  ],
+  "no": [
+   "dorsz/mintaj/morszczuk",
+   "krewetki",
+   "brukselka",
+   "kuskus",
+   "quinoa",
+   "gołąbki i bigos (robi mama)",
+   "zupy krem",
+   "jajka na twardo w pracy"
+  ],
+  "dislikesCooking": [
+   "zupy",
+   "ryby"
+  ],
+  "favourites": [
+   "udon teriyaki",
+   "schabowy",
+   "kurczak w panierce",
+   "kuchnia azjatycka",
+   "wrapy",
+   "chilli con carne"
+  ],
+  "coffee": "2× dziennie, bez cukru",
+  "partner": {
+   "meals": "kolacje w tygodniu (2–3×) i weekend; lunche tylko Paweł",
+   "wheat": "nietolerancja — unika dań, gdzie pszenica jest w roli głównej (makaron, tortilla pszenna, bułka); sos sojowy w małej ilości OK"
+  }
+ },
+ "pantryAlways": [
+  "Czosnek",
+  "Ryż basmati / jaśminowy",
+  "Kasza gryczana",
+  "Makaron pełnoziarnisty (penne)",
+  "Sos sojowy",
+  "Miód",
+  "Oliwa z oliwek",
+  "Sezam",
+  "Sriracha / sos chili",
+  "Przyprawy (wg przepisu)",
+  "sos teriyaki/ostrygowy",
+  "sriracha",
+  "mirin/ocet ryżowy",
+  "bulion",
+  "sól, pieprz",
+  "papryka słodka/wędzona/ostra",
+  "kumin",
+  "curry/garam masala",
+  "kurkuma",
+  "oregano/bazylia/zioła prowansalskie",
+  "majeranek",
+  "czosnek granulowany",
+  "chili",
+  "kasza",
+  "makaron"
+ ],
+ "pantrySometimes": [
+  "olej rzepakowy",
+  "ocet",
+  "musztarda",
+  "koncentrat pomidorowy",
+  "passata/pomidory z puszki",
+  "mleko kokosowe",
+  "imbir mielony",
+  "cynamon",
+  "liść laurowy/ziele angielskie",
+  "mąka pszenna",
+  "mąka ziemniaczana",
+  "bułka tarta/panko",
+  "fasola/ciecierzyca w puszce"
+ ],
+ "shopSections": [
+  "Warzywa i owoce",
+  "Pieczywo",
+  "Nabiał i jajka",
+  "Mięso i ryby",
+  "Mrożonki",
+  "Kasze, ryż, makarony, płatki",
+  "Puszki i słoiki",
+  "Sosy, oleje, przyprawy",
+  "Gotowe dania",
+  "Inne"
+ ],
+ "ingredients": [
+  {
+   "name": "Pierś z kurczaka",
+   "section": "Mięso i ryby",
+   "kcal": 98,
+   "protein": 21.5,
+   "fat": 1.3,
+   "satFat": 0.3,
+   "carbs": 0,
+   "fiber": 0,
+   "pricePerKg": 28,
+   "packGrams": 500,
+   "packLabel": "tacka ok. 500 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "piers_kurczaka"
+  },
+  {
+   "name": "Filet z udek kurczaka (bez skóry)",
+   "section": "Mięso i ryby",
+   "kcal": 120,
+   "protein": 19,
+   "fat": 4.5,
+   "satFat": 1.3,
+   "carbs": 0,
+   "fiber": 0,
+   "pricePerKg": 27,
+   "packGrams": 500,
+   "packLabel": "tacka ok. 500 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "udka_filet"
+  },
+  {
+   "name": "Mięso mielone z indyka",
+   "section": "Mięso i ryby",
+   "kcal": 130,
+   "protein": 20,
+   "fat": 5.5,
+   "satFat": 1.6,
+   "carbs": 0,
+   "fiber": 0,
+   "pricePerKg": 30,
+   "packGrams": 500,
+   "packLabel": "tacka 500 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "indyk_mielony"
+  },
+  {
+   "name": "Wołowina mielona chuda (do 10% tł.)",
+   "section": "Mięso i ryby",
+   "kcal": 176,
+   "protein": 20,
+   "fat": 10,
+   "satFat": 4.2,
+   "carbs": 0,
+   "fiber": 0,
+   "pricePerKg": 42,
+   "packGrams": 400,
+   "packLabel": "tacka 400 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "wolowina_mielona"
+  },
+  {
+   "name": "Wołowina na gulasz",
+   "section": "Mięso i ryby",
+   "kcal": 130,
+   "protein": 21,
+   "fat": 5,
+   "satFat": 2,
+   "carbs": 0,
+   "fiber": 0,
+   "pricePerKg": 52,
+   "packGrams": 500,
+   "packLabel": "tacka ok. 500 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "wolowina_gulasz"
+  },
+  {
+   "name": "Schab bez kości",
+   "section": "Mięso i ryby",
+   "kcal": 143,
+   "protein": 21,
+   "fat": 6.5,
+   "satFat": 2.3,
+   "carbs": 0,
+   "fiber": 0,
+   "pricePerKg": 24,
+   "packGrams": 500,
+   "packLabel": "ok. 500 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "schab"
+  },
+  {
+   "name": "Szynka / polędwica drobiowa",
+   "section": "Mięso i ryby",
+   "kcal": 100,
+   "protein": 18,
+   "fat": 2.5,
+   "satFat": 0.8,
+   "carbs": 1.5,
+   "fiber": 0,
+   "pricePerKg": 45,
+   "packGrams": 150,
+   "packLabel": "opak. 150 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": {
+    "name": "plaster",
+    "grams": 15
+   },
+   "id": "szynka_drobiowa"
+  },
+  {
+   "name": "Łosoś wędzony (plastry)",
+   "section": "Mięso i ryby",
+   "kcal": 180,
+   "protein": 22,
+   "fat": 10,
+   "satFat": 2,
+   "carbs": 0,
+   "fiber": 0,
+   "pricePerKg": 95,
+   "packGrams": 100,
+   "packLabel": "opak. 100 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "losos_wedzony"
+  },
+  {
+   "name": "Makrela wędzona",
+   "section": "Mięso i ryby",
+   "kcal": 280,
+   "protein": 19,
+   "fat": 23,
+   "satFat": 5,
+   "carbs": 0,
+   "fiber": 0,
+   "pricePerKg": 35,
+   "packGrams": 250,
+   "packLabel": "ok. 250 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "makrela_wedzona"
+  },
+  {
+   "name": "Kurczak pieczony z Lidla (mięso bez skóry)",
+   "section": "Gotowe dania",
+   "kcal": 170,
+   "protein": 26,
+   "fat": 7,
+   "satFat": 2,
+   "carbs": 0,
+   "fiber": 0,
+   "pricePerKg": 36,
+   "packGrams": 550,
+   "packLabel": "1 kurczak ≈ 550 g mięsa",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "kurczak_pieczony"
+  },
+  {
+   "name": "Jajka (M/L)",
+   "section": "Nabiał i jajka",
+   "kcal": 140,
+   "protein": 12.5,
+   "fat": 9.7,
+   "satFat": 3.1,
+   "carbs": 0.7,
+   "fiber": 0,
+   "pricePerKg": 17,
+   "packGrams": 600,
+   "packLabel": "opak. 10 szt.",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": {
+    "name": "szt.",
+    "grams": 60
+   },
+   "id": "jajko"
+  },
+  {
+   "name": "Serek wiejski",
+   "section": "Nabiał i jajka",
+   "kcal": 100,
+   "protein": 11,
+   "fat": 5,
+   "satFat": 3.2,
+   "carbs": 2,
+   "fiber": 0,
+   "pricePerKg": 15,
+   "packGrams": 200,
+   "packLabel": "kubek 200 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": {
+    "name": "kubek",
+    "grams": 200
+   },
+   "id": "serek_wiejski"
+  },
+  {
+   "name": "Twaróg półtłusty",
+   "section": "Nabiał i jajka",
+   "kcal": 133,
+   "protein": 18,
+   "fat": 4.7,
+   "satFat": 3,
+   "carbs": 3.5,
+   "fiber": 0,
+   "pricePerKg": 18,
+   "packGrams": 250,
+   "packLabel": "kostka 250 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "twarog"
+  },
+  {
+   "name": "Skyr naturalny",
+   "section": "Nabiał i jajka",
+   "kcal": 64,
+   "protein": 11,
+   "fat": 0.2,
+   "satFat": 0.1,
+   "carbs": 4,
+   "fiber": 0,
+   "pricePerKg": 15,
+   "packGrams": 450,
+   "packLabel": "kubek 450 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "skyr"
+  },
+  {
+   "name": "Skyr pitny / napój proteinowy",
+   "section": "Nabiał i jajka",
+   "kcal": 60,
+   "protein": 8,
+   "fat": 0.5,
+   "satFat": 0.3,
+   "carbs": 6,
+   "fiber": 0,
+   "pricePerKg": 15,
+   "packGrams": 350,
+   "packLabel": "butelka 350 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": {
+    "name": "butelka",
+    "grams": 350
+   },
+   "id": "skyr_pitny"
+  },
+  {
+   "name": "Jogurt naturalny 2%",
+   "section": "Nabiał i jajka",
+   "kcal": 60,
+   "protein": 4.5,
+   "fat": 2,
+   "satFat": 1.3,
+   "carbs": 6,
+   "fiber": 0,
+   "pricePerKg": 10,
+   "packGrams": 400,
+   "packLabel": "kubek 400 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "jogurt"
+  },
+  {
+   "name": "Kefir",
+   "section": "Nabiał i jajka",
+   "kcal": 50,
+   "protein": 3.4,
+   "fat": 2,
+   "satFat": 1.3,
+   "carbs": 4.5,
+   "fiber": 0,
+   "pricePerKg": 7,
+   "packGrams": 400,
+   "packLabel": "butelka 400 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "kefir"
+  },
+  {
+   "name": "Mleko 2%",
+   "section": "Nabiał i jajka",
+   "kcal": 50,
+   "protein": 3.3,
+   "fat": 2,
+   "satFat": 1.2,
+   "carbs": 4.8,
+   "fiber": 0,
+   "pricePerKg": 4.5,
+   "packGrams": 1000,
+   "packLabel": "karton 1 l",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "mleko"
+  },
+  {
+   "name": "Ser żółty light (plastry)",
+   "section": "Nabiał i jajka",
+   "kcal": 265,
+   "protein": 30,
+   "fat": 16,
+   "satFat": 10,
+   "carbs": 0.5,
+   "fiber": 0,
+   "pricePerKg": 42,
+   "packGrams": 150,
+   "packLabel": "opak. 150 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": {
+    "name": "plaster",
+    "grams": 20
+   },
+   "id": "ser_light"
+  },
+  {
+   "name": "Mozzarella light",
+   "section": "Nabiał i jajka",
+   "kcal": 165,
+   "protein": 19,
+   "fat": 9,
+   "satFat": 6,
+   "carbs": 1,
+   "fiber": 0,
+   "pricePerKg": 30,
+   "packGrams": 125,
+   "packLabel": "kulka 125 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "mozzarella_light"
+  },
+  {
+   "name": "Ser sałatkowy / feta light",
+   "section": "Nabiał i jajka",
+   "kcal": 180,
+   "protein": 14,
+   "fat": 12,
+   "satFat": 8,
+   "carbs": 1.5,
+   "fiber": 0,
+   "pricePerKg": 30,
+   "packGrams": 200,
+   "packLabel": "kostka 200 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "feta_light"
+  },
+  {
+   "name": "Hummus",
+   "section": "Nabiał i jajka",
+   "kcal": 260,
+   "protein": 7.5,
+   "fat": 20,
+   "satFat": 2,
+   "carbs": 11,
+   "fiber": 6,
+   "pricePerKg": 30,
+   "packGrams": 200,
+   "packLabel": "kubek 200 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "hummus"
+  },
+  {
+   "name": "Brokuł",
+   "section": "Warzywa i owoce",
+   "kcal": 34,
+   "protein": 2.8,
+   "fat": 0.4,
+   "satFat": 0.1,
+   "carbs": 4,
+   "fiber": 2.6,
+   "pricePerKg": 14,
+   "packGrams": 450,
+   "packLabel": "1 szt. ok. 450 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "brokul"
+  },
+  {
+   "name": "Papryka",
+   "section": "Warzywa i owoce",
+   "kcal": 30,
+   "protein": 1,
+   "fat": 0.3,
+   "satFat": 0,
+   "carbs": 6,
+   "fiber": 2,
+   "pricePerKg": 14,
+   "packGrams": 200,
+   "packLabel": "1 szt. ok. 200 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": {
+    "name": "szt.",
+    "grams": 200
+   },
+   "id": "papryka"
+  },
+  {
+   "name": "Pomidory",
+   "section": "Warzywa i owoce",
+   "kcal": 18,
+   "protein": 0.9,
+   "fat": 0.2,
+   "satFat": 0,
+   "carbs": 3.5,
+   "fiber": 1.2,
+   "pricePerKg": 10,
+   "packGrams": 120,
+   "packLabel": "1 szt. ok. 120 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": {
+    "name": "szt.",
+    "grams": 120
+   },
+   "id": "pomidor"
+  },
+  {
+   "name": "Ogórek",
+   "section": "Warzywa i owoce",
+   "kcal": 13,
+   "protein": 0.6,
+   "fat": 0.1,
+   "satFat": 0,
+   "carbs": 2.5,
+   "fiber": 0.7,
+   "pricePerKg": 8,
+   "packGrams": 250,
+   "packLabel": "1 szt. ok. 250 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": {
+    "name": "szt.",
+    "grams": 250
+   },
+   "id": "ogorek"
+  },
+  {
+   "name": "Cebula",
+   "section": "Warzywa i owoce",
+   "kcal": 40,
+   "protein": 1.1,
+   "fat": 0.1,
+   "satFat": 0,
+   "carbs": 9,
+   "fiber": 1.7,
+   "pricePerKg": 4,
+   "packGrams": 100,
+   "packLabel": "1 szt. ok. 100 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": {
+    "name": "szt.",
+    "grams": 100
+   },
+   "id": "cebula"
+  },
+  {
+   "name": "Cebula czerwona",
+   "section": "Warzywa i owoce",
+   "kcal": 40,
+   "protein": 1.1,
+   "fat": 0.1,
+   "satFat": 0,
+   "carbs": 9,
+   "fiber": 1.7,
+   "pricePerKg": 6,
+   "packGrams": 100,
+   "packLabel": "1 szt. ok. 100 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": {
+    "name": "szt.",
+    "grams": 100
+   },
+   "id": "cebula_czerwona"
+  },
+  {
+   "name": "Czosnek",
+   "section": "Warzywa i owoce",
+   "kcal": 150,
+   "protein": 6.4,
+   "fat": 0.5,
+   "satFat": 0.1,
+   "carbs": 33,
+   "fiber": 2,
+   "pricePerKg": 30,
+   "packGrams": 50,
+   "packLabel": "główka ok. 50 g",
+   "pantry": true,
+   "wheat": false,
+   "perishable": false,
+   "unit": {
+    "name": "ząbek",
+    "grams": 5
+   },
+   "id": "czosnek"
+  },
+  {
+   "name": "Marchew",
+   "section": "Warzywa i owoce",
+   "kcal": 41,
+   "protein": 0.9,
+   "fat": 0.2,
+   "satFat": 0,
+   "carbs": 10,
+   "fiber": 2.8,
+   "pricePerKg": 4,
+   "packGrams": 1000,
+   "packLabel": "worek 1 kg",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": {
+    "name": "szt.",
+    "grams": 80
+   },
+   "id": "marchew"
+  },
+  {
+   "name": "Cukinia",
+   "section": "Warzywa i owoce",
+   "kcal": 17,
+   "protein": 1.2,
+   "fat": 0.3,
+   "satFat": 0.1,
+   "carbs": 3,
+   "fiber": 1,
+   "pricePerKg": 10,
+   "packGrams": 300,
+   "packLabel": "1 szt. ok. 300 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": {
+    "name": "szt.",
+    "grams": 300
+   },
+   "id": "cukinia"
+  },
+  {
+   "name": "Bakłażan",
+   "section": "Warzywa i owoce",
+   "kcal": 25,
+   "protein": 1,
+   "fat": 0.2,
+   "satFat": 0,
+   "carbs": 6,
+   "fiber": 3,
+   "pricePerKg": 12,
+   "packGrams": 300,
+   "packLabel": "1 szt. ok. 300 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": {
+    "name": "szt.",
+    "grams": 300
+   },
+   "id": "baklazan"
+  },
+  {
+   "name": "Szpinak baby",
+   "section": "Warzywa i owoce",
+   "kcal": 23,
+   "protein": 2.9,
+   "fat": 0.4,
+   "satFat": 0.1,
+   "carbs": 3.6,
+   "fiber": 2.2,
+   "pricePerKg": 30,
+   "packGrams": 150,
+   "packLabel": "opak. 150 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "szpinak"
+  },
+  {
+   "name": "Sałata / mix sałat",
+   "section": "Warzywa i owoce",
+   "kcal": 15,
+   "protein": 1.3,
+   "fat": 0.2,
+   "satFat": 0,
+   "carbs": 2.9,
+   "fiber": 1.3,
+   "pricePerKg": 25,
+   "packGrams": 150,
+   "packLabel": "opak. 150 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "salata"
+  },
+  {
+   "name": "Rzodkiewka",
+   "section": "Warzywa i owoce",
+   "kcal": 16,
+   "protein": 0.7,
+   "fat": 0.1,
+   "satFat": 0,
+   "carbs": 3.4,
+   "fiber": 1.6,
+   "pricePerKg": 12,
+   "packGrams": 150,
+   "packLabel": "pęczek ok. 150 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "rzodkiewka"
+  },
+  {
+   "name": "Szczypiorek",
+   "section": "Warzywa i owoce",
+   "kcal": 30,
+   "protein": 3,
+   "fat": 0.7,
+   "satFat": 0.1,
+   "carbs": 4,
+   "fiber": 2.5,
+   "pricePerKg": 80,
+   "packGrams": 25,
+   "packLabel": "pęczek",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "szczypiorek"
+  },
+  {
+   "name": "Koperek",
+   "section": "Warzywa i owoce",
+   "kcal": 43,
+   "protein": 3.5,
+   "fat": 1.1,
+   "satFat": 0.1,
+   "carbs": 7,
+   "fiber": 2.1,
+   "pricePerKg": 80,
+   "packGrams": 30,
+   "packLabel": "pęczek",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "koperek"
+  },
+  {
+   "name": "Kolendra świeża",
+   "section": "Warzywa i owoce",
+   "kcal": 23,
+   "protein": 2.1,
+   "fat": 0.5,
+   "satFat": 0,
+   "carbs": 3.7,
+   "fiber": 2.8,
+   "pricePerKg": 100,
+   "packGrams": 30,
+   "packLabel": "pęczek / doniczka",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "kolendra"
+  },
+  {
+   "name": "Pieczarki",
+   "section": "Warzywa i owoce",
+   "kcal": 22,
+   "protein": 3,
+   "fat": 0.3,
+   "satFat": 0,
+   "carbs": 3.3,
+   "fiber": 1,
+   "pricePerKg": 13,
+   "packGrams": 250,
+   "packLabel": "opak. 250 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "pieczarki"
+  },
+  {
+   "name": "Imbir świeży",
+   "section": "Warzywa i owoce",
+   "kcal": 80,
+   "protein": 1.8,
+   "fat": 0.8,
+   "satFat": 0.2,
+   "carbs": 18,
+   "fiber": 2,
+   "pricePerKg": 25,
+   "packGrams": 100,
+   "packLabel": "kawałek ok. 100 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "imbir"
+  },
+  {
+   "name": "Ziemniaki",
+   "section": "Warzywa i owoce",
+   "kcal": 77,
+   "protein": 2,
+   "fat": 0.1,
+   "satFat": 0,
+   "carbs": 17,
+   "fiber": 2.2,
+   "pricePerKg": 3.5,
+   "packGrams": 2000,
+   "packLabel": "worek 2 kg",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "ziemniaki"
+  },
+  {
+   "name": "Limonka",
+   "section": "Warzywa i owoce",
+   "kcal": 30,
+   "protein": 0.7,
+   "fat": 0.2,
+   "satFat": 0,
+   "carbs": 10,
+   "fiber": 2.8,
+   "pricePerKg": 20,
+   "packGrams": 60,
+   "packLabel": "1 szt.",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": {
+    "name": "szt.",
+    "grams": 60
+   },
+   "id": "limonka"
+  },
+  {
+   "name": "Banany",
+   "section": "Warzywa i owoce",
+   "kcal": 90,
+   "protein": 1.1,
+   "fat": 0.3,
+   "satFat": 0.1,
+   "carbs": 21,
+   "fiber": 2.6,
+   "pricePerKg": 6,
+   "packGrams": 120,
+   "packLabel": "1 szt. ok. 120 g (bez skórki)",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": {
+    "name": "szt.",
+    "grams": 120
+   },
+   "id": "banan"
+  },
+  {
+   "name": "Jabłka",
+   "section": "Warzywa i owoce",
+   "kcal": 52,
+   "protein": 0.3,
+   "fat": 0.2,
+   "satFat": 0,
+   "carbs": 12,
+   "fiber": 2.4,
+   "pricePerKg": 4.5,
+   "packGrams": 180,
+   "packLabel": "1 szt. ok. 180 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": {
+    "name": "szt.",
+    "grams": 180
+   },
+   "id": "jablko"
+  },
+  {
+   "name": "Surówka gotowa (np. z kapusty)",
+   "section": "Gotowe dania",
+   "kcal": 70,
+   "protein": 1,
+   "fat": 4,
+   "satFat": 0.4,
+   "carbs": 7,
+   "fiber": 2,
+   "pricePerKg": 16,
+   "packGrams": 400,
+   "packLabel": "opak. 400 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": true,
+   "unit": null,
+   "id": "surowka"
+  },
+  {
+   "name": "Chleb żytni razowy (100% żyto)",
+   "section": "Pieczywo",
+   "kcal": 220,
+   "protein": 6,
+   "fat": 1.5,
+   "satFat": 0.3,
+   "carbs": 42,
+   "fiber": 8,
+   "pricePerKg": 11,
+   "packGrams": 500,
+   "packLabel": "bochenek 500 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": {
+    "name": "kromka",
+    "grams": 40
+   },
+   "id": "chleb_zytni"
+  },
+  {
+   "name": "Tortilla pełnoziarnista",
+   "section": "Pieczywo",
+   "kcal": 300,
+   "protein": 9,
+   "fat": 7,
+   "satFat": 2.5,
+   "carbs": 47,
+   "fiber": 6,
+   "pricePerKg": 21,
+   "packGrams": 370,
+   "packLabel": "opak. 6 szt.",
+   "pantry": false,
+   "wheat": true,
+   "perishable": false,
+   "unit": {
+    "name": "szt.",
+    "grams": 62
+   },
+   "id": "tortilla"
+  },
+  {
+   "name": "Bagietka / bułka pełnoziarnista",
+   "section": "Pieczywo",
+   "kcal": 250,
+   "protein": 9,
+   "fat": 3,
+   "satFat": 0.6,
+   "carbs": 46,
+   "fiber": 6,
+   "pricePerKg": 14,
+   "packGrams": 100,
+   "packLabel": "1 szt. ok. 100 g",
+   "pantry": false,
+   "wheat": true,
+   "perishable": true,
+   "unit": {
+    "name": "szt.",
+    "grams": 100
+   },
+   "id": "bulka_pelnoziarnista"
+  },
+  {
+   "name": "Mrożone warzywa na patelnię (bez sosu)",
+   "section": "Mrożonki",
+   "kcal": 45,
+   "protein": 2,
+   "fat": 0.3,
+   "satFat": 0,
+   "carbs": 8,
+   "fiber": 3,
+   "pricePerKg": 11,
+   "packGrams": 750,
+   "packLabel": "opak. 750 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "warzywa_patelnia"
+  },
+  {
+   "name": "Brokuł mrożony",
+   "section": "Mrożonki",
+   "kcal": 30,
+   "protein": 2.5,
+   "fat": 0.3,
+   "satFat": 0.1,
+   "carbs": 4,
+   "fiber": 2.6,
+   "pricePerKg": 11,
+   "packGrams": 450,
+   "packLabel": "opak. 450 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "brokul_mrozony"
+  },
+  {
+   "name": "Groszek zielony mrożony",
+   "section": "Mrożonki",
+   "kcal": 80,
+   "protein": 5.4,
+   "fat": 0.4,
+   "satFat": 0.1,
+   "carbs": 14,
+   "fiber": 5,
+   "pricePerKg": 10,
+   "packGrams": 450,
+   "packLabel": "opak. 450 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "groszek"
+  },
+  {
+   "name": "Borówki / owoce leśne mrożone",
+   "section": "Mrożonki",
+   "kcal": 57,
+   "protein": 0.7,
+   "fat": 0.3,
+   "satFat": 0,
+   "carbs": 12,
+   "fiber": 2.4,
+   "pricePerKg": 24,
+   "packGrams": 450,
+   "packLabel": "opak. 450 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "borowki_mrozone"
+  },
+  {
+   "name": "Pierogi mrożone (ruskie / z mięsem)",
+   "section": "Mrożonki",
+   "kcal": 220,
+   "protein": 7,
+   "fat": 6,
+   "satFat": 2,
+   "carbs": 34,
+   "fiber": 2,
+   "pricePerKg": 22,
+   "packGrams": 450,
+   "packLabel": "opak. 450 g",
+   "pantry": false,
+   "wheat": true,
+   "perishable": false,
+   "unit": null,
+   "id": "pierogi"
+  },
+  {
+   "name": "Ryż basmati / jaśminowy",
+   "section": "Kasze, ryż, makarony, płatki",
+   "kcal": 350,
+   "protein": 8,
+   "fat": 0.6,
+   "satFat": 0.2,
+   "carbs": 78,
+   "fiber": 1.3,
+   "pricePerKg": 9,
+   "packGrams": 1000,
+   "packLabel": "1 kg",
+   "pantry": true,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "ryz_basmati"
+  },
+  {
+   "name": "Kasza gryczana",
+   "section": "Kasze, ryż, makarony, płatki",
+   "kcal": 345,
+   "protein": 12.6,
+   "fat": 3,
+   "satFat": 0.6,
+   "carbs": 66,
+   "fiber": 10,
+   "pricePerKg": 10,
+   "packGrams": 1000,
+   "packLabel": "1 kg (lub 4×100 g)",
+   "pantry": true,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "kasza_gryczana"
+  },
+  {
+   "name": "Bulgur",
+   "section": "Kasze, ryż, makarony, płatki",
+   "kcal": 345,
+   "protein": 12,
+   "fat": 1.3,
+   "satFat": 0.2,
+   "carbs": 69,
+   "fiber": 12,
+   "pricePerKg": 12,
+   "packGrams": 400,
+   "packLabel": "opak. 400 g",
+   "pantry": false,
+   "wheat": true,
+   "perishable": false,
+   "unit": null,
+   "id": "bulgur"
+  },
+  {
+   "name": "Makaron pełnoziarnisty (penne)",
+   "section": "Kasze, ryż, makarony, płatki",
+   "kcal": 350,
+   "protein": 13,
+   "fat": 2.5,
+   "satFat": 0.5,
+   "carbs": 64,
+   "fiber": 9,
+   "pricePerKg": 10,
+   "packGrams": 500,
+   "packLabel": "opak. 500 g",
+   "pantry": true,
+   "wheat": true,
+   "perishable": false,
+   "unit": null,
+   "id": "makaron_pelnoziarnisty"
+  },
+  {
+   "name": "Makaron udon (gotowy, próżniowy)",
+   "section": "Kasze, ryż, makarony, płatki",
+   "kcal": 130,
+   "protein": 3.5,
+   "fat": 0.5,
+   "satFat": 0.1,
+   "carbs": 27,
+   "fiber": 1,
+   "pricePerKg": 20,
+   "packGrams": 200,
+   "packLabel": "1 porcja 200 g",
+   "pantry": false,
+   "wheat": true,
+   "perishable": false,
+   "unit": null,
+   "id": "udon"
+  },
+  {
+   "name": "Płatki owsiane górskie",
+   "section": "Kasze, ryż, makarony, płatki",
+   "kcal": 370,
+   "protein": 13,
+   "fat": 7,
+   "satFat": 1.3,
+   "carbs": 60,
+   "fiber": 10,
+   "pricePerKg": 6,
+   "packGrams": 500,
+   "packLabel": "opak. 500 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "platki_owsiane"
+  },
+  {
+   "name": "Wafle ryżowe",
+   "section": "Kasze, ryż, makarony, płatki",
+   "kcal": 385,
+   "protein": 8,
+   "fat": 3,
+   "satFat": 0.6,
+   "carbs": 80,
+   "fiber": 3,
+   "pricePerKg": 25,
+   "packGrams": 130,
+   "packLabel": "opak. 130 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": {
+    "name": "szt.",
+    "grams": 10
+   },
+   "id": "wafle_ryzowe"
+  },
+  {
+   "name": "Orzechy włoskie",
+   "section": "Kasze, ryż, makarony, płatki",
+   "kcal": 650,
+   "protein": 15,
+   "fat": 65,
+   "satFat": 6,
+   "carbs": 7,
+   "fiber": 7,
+   "pricePerKg": 50,
+   "packGrams": 200,
+   "packLabel": "opak. 200 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "orzechy_wloskie"
+  },
+  {
+   "name": "Panko / bułka tarta",
+   "section": "Kasze, ryż, makarony, płatki",
+   "kcal": 370,
+   "protein": 11,
+   "fat": 2,
+   "satFat": 0.4,
+   "carbs": 75,
+   "fiber": 3,
+   "pricePerKg": 20,
+   "packGrams": 200,
+   "packLabel": "opak. 200 g",
+   "pantry": false,
+   "wheat": true,
+   "perishable": false,
+   "unit": null,
+   "id": "panko"
+  },
+  {
+   "name": "Fasola czerwona (puszka, odsączona)",
+   "section": "Puszki i słoiki",
+   "kcal": 105,
+   "protein": 7,
+   "fat": 0.5,
+   "satFat": 0.1,
+   "carbs": 14,
+   "fiber": 6.5,
+   "pricePerKg": 13,
+   "packGrams": 240,
+   "packLabel": "puszka 400 g (240 g po odsączeniu)",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "fasola_czerwona"
+  },
+  {
+   "name": "Ciecierzyca (puszka, odsączona)",
+   "section": "Puszki i słoiki",
+   "kcal": 120,
+   "protein": 7,
+   "fat": 2,
+   "satFat": 0.2,
+   "carbs": 15,
+   "fiber": 6,
+   "pricePerKg": 13,
+   "packGrams": 240,
+   "packLabel": "puszka 400 g (240 g po odsączeniu)",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "ciecierzyca"
+  },
+  {
+   "name": "Kukurydza (puszka, odsączona)",
+   "section": "Puszki i słoiki",
+   "kcal": 85,
+   "protein": 2.5,
+   "fat": 1.2,
+   "satFat": 0.2,
+   "carbs": 16,
+   "fiber": 3,
+   "pricePerKg": 14,
+   "packGrams": 280,
+   "packLabel": "puszka 400 g (280 g po odsączeniu)",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "kukurydza"
+  },
+  {
+   "name": "Tuńczyk w sosie własnym (odsączony)",
+   "section": "Puszki i słoiki",
+   "kcal": 110,
+   "protein": 25,
+   "fat": 1,
+   "satFat": 0.3,
+   "carbs": 0,
+   "fiber": 0,
+   "pricePerKg": 50,
+   "packGrams": 120,
+   "packLabel": "puszka 170 g (120 g po odsączeniu)",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "tunczyk"
+  },
+  {
+   "name": "Pomidory krojone (puszka)",
+   "section": "Puszki i słoiki",
+   "kcal": 22,
+   "protein": 1.2,
+   "fat": 0.2,
+   "satFat": 0,
+   "carbs": 4,
+   "fiber": 1,
+   "pricePerKg": 7,
+   "packGrams": 400,
+   "packLabel": "puszka 400 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "pomidory_puszka"
+  },
+  {
+   "name": "Passata pomidorowa",
+   "section": "Puszki i słoiki",
+   "kcal": 30,
+   "protein": 1.4,
+   "fat": 0.2,
+   "satFat": 0,
+   "carbs": 5.5,
+   "fiber": 1.2,
+   "pricePerKg": 6,
+   "packGrams": 700,
+   "packLabel": "butelka 700 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "passata"
+  },
+  {
+   "name": "Koncentrat pomidorowy",
+   "section": "Puszki i słoiki",
+   "kcal": 80,
+   "protein": 4,
+   "fat": 0.5,
+   "satFat": 0.1,
+   "carbs": 15,
+   "fiber": 4,
+   "pricePerKg": 25,
+   "packGrams": 190,
+   "packLabel": "słoik 190 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "koncentrat"
+  },
+  {
+   "name": "Mleko kokosowe light",
+   "section": "Puszki i słoiki",
+   "kcal": 75,
+   "protein": 0.7,
+   "fat": 7,
+   "satFat": 6,
+   "carbs": 1.5,
+   "fiber": 0,
+   "pricePerKg": 20,
+   "packGrams": 400,
+   "packLabel": "puszka 400 ml",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "mleko_kokosowe"
+  },
+  {
+   "name": "Zupa gotowa (karton / słoik)",
+   "section": "Gotowe dania",
+   "kcal": 45,
+   "protein": 1.5,
+   "fat": 1.5,
+   "satFat": 0.5,
+   "carbs": 6,
+   "fiber": 1,
+   "pricePerKg": 9,
+   "packGrams": 500,
+   "packLabel": "opak. 500 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "zupa_gotowa"
+  },
+  {
+   "name": "Sos sojowy",
+   "section": "Sosy, oleje, przyprawy",
+   "kcal": 60,
+   "protein": 8,
+   "fat": 0,
+   "satFat": 0,
+   "carbs": 6,
+   "fiber": 0,
+   "pricePerKg": 30,
+   "packGrams": 150,
+   "packLabel": "butelka 150 ml",
+   "pantry": true,
+   "wheat": true,
+   "perishable": false,
+   "unit": {
+    "name": "łyżka",
+    "grams": 15
+   },
+   "id": "sos_sojowy"
+  },
+  {
+   "name": "Miód",
+   "section": "Sosy, oleje, przyprawy",
+   "kcal": 320,
+   "protein": 0.3,
+   "fat": 0,
+   "satFat": 0,
+   "carbs": 80,
+   "fiber": 0,
+   "pricePerKg": 40,
+   "packGrams": 400,
+   "packLabel": "słoik 400 g",
+   "pantry": true,
+   "wheat": false,
+   "perishable": false,
+   "unit": {
+    "name": "łyżeczka",
+    "grams": 10
+   },
+   "id": "miod"
+  },
+  {
+   "name": "Olej rzepakowy",
+   "section": "Sosy, oleje, przyprawy",
+   "kcal": 884,
+   "protein": 0,
+   "fat": 100,
+   "satFat": 7,
+   "carbs": 0,
+   "fiber": 0,
+   "pricePerKg": 9,
+   "packGrams": 1000,
+   "packLabel": "butelka 1 l",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": {
+    "name": "łyżka",
+    "grams": 10
+   },
+   "id": "olej_rzepakowy"
+  },
+  {
+   "name": "Oliwa z oliwek",
+   "section": "Sosy, oleje, przyprawy",
+   "kcal": 884,
+   "protein": 0,
+   "fat": 100,
+   "satFat": 14,
+   "carbs": 0,
+   "fiber": 0,
+   "pricePerKg": 40,
+   "packGrams": 500,
+   "packLabel": "butelka 500 ml",
+   "pantry": true,
+   "wheat": false,
+   "perishable": false,
+   "unit": {
+    "name": "łyżka",
+    "grams": 10
+   },
+   "id": "oliwa"
+  },
+  {
+   "name": "Mąka ziemniaczana",
+   "section": "Sosy, oleje, przyprawy",
+   "kcal": 350,
+   "protein": 0,
+   "fat": 0,
+   "satFat": 0,
+   "carbs": 86,
+   "fiber": 0,
+   "pricePerKg": 8,
+   "packGrams": 500,
+   "packLabel": "opak. 500 g",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": {
+    "name": "łyżeczka",
+    "grams": 5
+   },
+   "id": "skrobia"
+  },
+  {
+   "name": "Sezam",
+   "section": "Sosy, oleje, przyprawy",
+   "kcal": 570,
+   "protein": 18,
+   "fat": 50,
+   "satFat": 7,
+   "carbs": 23,
+   "fiber": 12,
+   "pricePerKg": 30,
+   "packGrams": 100,
+   "packLabel": "opak. 100 g",
+   "pantry": true,
+   "wheat": false,
+   "perishable": false,
+   "unit": {
+    "name": "łyżeczka",
+    "grams": 4
+   },
+   "id": "sezam"
+  },
+  {
+   "name": "Sriracha / sos chili",
+   "section": "Sosy, oleje, przyprawy",
+   "kcal": 100,
+   "protein": 2,
+   "fat": 1,
+   "satFat": 0,
+   "carbs": 20,
+   "fiber": 0,
+   "pricePerKg": 40,
+   "packGrams": 200,
+   "packLabel": "butelka",
+   "pantry": true,
+   "wheat": false,
+   "perishable": false,
+   "unit": {
+    "name": "łyżeczka",
+    "grams": 5
+   },
+   "id": "sriracha"
+  },
+  {
+   "name": "Musztarda",
+   "section": "Sosy, oleje, przyprawy",
+   "kcal": 100,
+   "protein": 6,
+   "fat": 5,
+   "satFat": 0.3,
+   "carbs": 6,
+   "fiber": 3,
+   "pricePerKg": 15,
+   "packGrams": 180,
+   "packLabel": "słoik",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": {
+    "name": "łyżeczka",
+    "grams": 5
+   },
+   "id": "musztarda"
+  },
+  {
+   "name": "Przyprawy (wg przepisu)",
+   "section": "Sosy, oleje, przyprawy",
+   "kcal": 0,
+   "protein": 0,
+   "fat": 0,
+   "satFat": 0,
+   "carbs": 0,
+   "fiber": 0,
+   "pricePerKg": 0,
+   "packGrams": 1,
+   "packLabel": "",
+   "pantry": true,
+   "wheat": false,
+   "perishable": false,
+   "unit": null,
+   "id": "przyprawy"
+  },
+  {
+   "name": "Proszek do pieczenia",
+   "section": "Sosy, oleje, przyprawy",
+   "kcal": 0,
+   "protein": 0,
+   "fat": 0,
+   "satFat": 0,
+   "carbs": 0,
+   "fiber": 0,
+   "pricePerKg": 0,
+   "packGrams": 30,
+   "packLabel": "torebka",
+   "pantry": false,
+   "wheat": false,
+   "perishable": false,
+   "unit": {
+    "name": "łyżeczka",
+    "grams": 4
+   },
+   "id": "proszek_do_pieczenia"
+  }
+ ],
+ "recipes": [
+  {
+   "id": "sn_serek_wiejski",
+   "name": "Serek wiejski z chlebem żytnim i warzywami",
+   "type": "śniadanie",
+   "servings": 1,
+   "timeMin": 5,
+   "ingredients": [
+    {
+     "id": "serek_wiejski",
+     "g": 200
+    },
+    {
+     "id": "chleb_zytni",
+     "g": 80,
+     "note": "2 kromki"
+    },
+    {
+     "id": "papryka",
+     "g": 100
+    },
+    {
+     "id": "pomidor",
+     "g": 120
+    },
+    {
+     "id": "szczypiorek",
+     "g": 5
+    }
+   ],
+   "steps": [
+    "Wieczorem pokrój paprykę w słupki, pomidor zostaw w całości.",
+    "Spakuj: kubek serka, 2 kromki chleba w woreczku, warzywa w małym pojemniku.",
+    "W pracy: serek z szczypiorkiem i pieprzem, chleb, warzywa do chrupania."
+   ],
+   "fridgeDays": 1,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "do pracy",
+    "bez gotowania",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "pieprz",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 429.0,
+    "protein": 29.0,
+    "fat": 11.8,
+    "satFat": 6.6,
+    "carbs": 48.0,
+    "fiber": 10.0,
+    "cost": 6.9
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "sn_twarozek",
+   "name": "Twarożek ze szczypiorkiem i rzodkiewką + chleb żytni",
+   "type": "śniadanie",
+   "servings": 1,
+   "timeMin": 7,
+   "ingredients": [
+    {
+     "id": "twarog",
+     "g": 150
+    },
+    {
+     "id": "jogurt",
+     "g": 30
+    },
+    {
+     "id": "rzodkiewka",
+     "g": 80
+    },
+    {
+     "id": "szczypiorek",
+     "g": 10
+    },
+    {
+     "id": "chleb_zytni",
+     "g": 80,
+     "note": "2 kromki"
+    }
+   ],
+   "steps": [
+    "Rozgnieć twaróg widelcem z jogurtem, solą i pieprzem.",
+    "Dodaj posiekany szczypiorek i pokrojoną rzodkiewkę (albo rzodkiewkę osobno, żeby była chrupiąca).",
+    "Do pojemnika 350–400 ml; chleb osobno."
+   ],
+   "fridgeDays": 2,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "do pracy",
+    "bez gotowania",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "Można zrobić podwójną porcję na 2 dni.",
+   "spices": "sól, pieprz",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 409.0,
+    "protein": 34.0,
+    "fat": 9.0,
+    "satFat": 5.1,
+    "carbs": 43.8,
+    "fiber": 7.9,
+    "cost": 5.6
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "sn_muffinki",
+   "name": "Muffinki jajeczne z warzywami (na zapas)",
+   "type": "śniadanie",
+   "servings": 4,
+   "timeMin": 35,
+   "ingredients": [
+    {
+     "id": "jajko",
+     "g": 600,
+     "note": "10 szt."
+    },
+    {
+     "id": "papryka",
+     "g": 200
+    },
+    {
+     "id": "szpinak",
+     "g": 75
+    },
+    {
+     "id": "cebula",
+     "g": 100
+    },
+    {
+     "id": "ser_light",
+     "g": 60
+    },
+    {
+     "id": "szynka_drobiowa",
+     "g": 100
+    },
+    {
+     "id": "chleb_zytni",
+     "g": 240,
+     "note": "1,5 kromki na porcję"
+    },
+    {
+     "id": "pomidor",
+     "g": 240
+    }
+   ],
+   "steps": [
+    "Piekarnik 180°C. Formę na 12 muffinek wysmaruj odrobiną oleju albo włóż papilotki silikonowe.",
+    "Pokrój drobno paprykę, cebulę, szynkę i szpinak; rozłóż do foremek.",
+    "Roztrzep jajka z solą, pieprzem i słodką papryką, wlej do foremek, posyp startym serem.",
+    "Piecz 20–22 min. Wystudź, przełóż do pojemnika.",
+    "Porcja = 3 muffinki + 1,5 kromki chleba + pomidor. Można jeść na zimno albo podgrzać 30 s w mikrofali."
+   ],
+   "fridgeDays": 4,
+   "freezer": false,
+   "batch": true,
+   "tags": [
+    "do pracy",
+    "na zapas",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "sól, pieprz, papryka słodka",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 447.0,
+    "protein": 33.2,
+    "fat": 18.8,
+    "satFat": 6.5,
+    "carbs": 34.7,
+    "fiber": 7.4,
+    "cost": 6.9
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "sn_wrap_jajecznica",
+   "name": "Wrap z jajecznicą, szpinakiem i serem",
+   "type": "śniadanie",
+   "servings": 1,
+   "timeMin": 10,
+   "ingredients": [
+    {
+     "id": "tortilla",
+     "g": 62,
+     "note": "1 szt."
+    },
+    {
+     "id": "jajko",
+     "g": 120,
+     "note": "2 szt."
+    },
+    {
+     "id": "szpinak",
+     "g": 30
+    },
+    {
+     "id": "ser_light",
+     "g": 20,
+     "note": "1 plaster"
+    },
+    {
+     "id": "pomidor",
+     "g": 60
+    },
+    {
+     "id": "olej_rzepakowy",
+     "g": 3
+    }
+   ],
+   "steps": [
+    "Wieczorem: na patelni z kroplą oleju zrób jajecznicę, pod koniec wrzuć szpinak.",
+    "Połóż na tortilli plaster sera, jajecznicę i pomidor; zawiń ciasno, owiń folią lub papierem.",
+    "Rano do torby. W pracy 40–60 s w mikrofali (bez folii aluminiowej)."
+   ],
+   "fridgeDays": 1,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "do pracy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "sól, pieprz",
+   "wheatSwap": "tortilla kukurydziana",
+   "perServing": {
+    "kcal": 451.0,
+    "protein": 28.0,
+    "fat": 22.4,
+    "satFat": 7.5,
+    "carbs": 33.3,
+    "fiber": 5.1,
+    "cost": 5.7
+   },
+   "wheatMain": true
+  },
+  {
+   "id": "sn_skyr_owies",
+   "name": "Skyr z płatkami owsianymi, borówkami i orzechami",
+   "type": "śniadanie",
+   "servings": 1,
+   "timeMin": 3,
+   "ingredients": [
+    {
+     "id": "skyr",
+     "g": 250
+    },
+    {
+     "id": "platki_owsiane",
+     "g": 40
+    },
+    {
+     "id": "borowki_mrozone",
+     "g": 100
+    },
+    {
+     "id": "orzechy_wloskie",
+     "g": 10
+    },
+    {
+     "id": "miod",
+     "g": 5
+    }
+   ],
+   "steps": [
+    "Wieczorem: do pojemnika skyr, na wierzch płatki, mrożone borówki (rozmrożą się do rana), orzechy i łyżeczkę miodu.",
+    "Rano tylko zabierz z lodówki."
+   ],
+   "fridgeDays": 1,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "do pracy",
+    "bez gotowania",
+    "owies",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "Owies (beta-glukan) pomaga obniżać LDL.",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 446.0,
+    "protein": 34.9,
+    "fat": 10.1,
+    "satFat": 1.4,
+    "carbs": 50.7,
+    "fiber": 7.1,
+    "cost": 7.1
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "sn_placuszki",
+   "name": "Placuszki owsiano-bananowe ze skyrem (na zapas)",
+   "type": "śniadanie",
+   "servings": 4,
+   "timeMin": 30,
+   "ingredients": [
+    {
+     "id": "platki_owsiane",
+     "g": 200
+    },
+    {
+     "id": "banan",
+     "g": 240,
+     "note": "2 szt."
+    },
+    {
+     "id": "jajko",
+     "g": 240,
+     "note": "4 szt."
+    },
+    {
+     "id": "mleko",
+     "g": 100
+    },
+    {
+     "id": "proszek_do_pieczenia",
+     "g": 4
+    },
+    {
+     "id": "olej_rzepakowy",
+     "g": 10
+    },
+    {
+     "id": "skyr",
+     "g": 600,
+     "note": "150 g na porcję"
+    },
+    {
+     "id": "borowki_mrozone",
+     "g": 200
+    }
+   ],
+   "steps": [
+    "Zmiksuj albo rozgnieć banany, dodaj jajka, mleko, płatki, proszek i szczyptę cynamonu; odstaw na 5 min.",
+    "Smaż małe placuszki na patelni lekko posmarowanej olejem, ok. 2 min z każdej strony (ok. 16 szt.).",
+    "Wystudź i podziel na 4 pojemniki (4 placuszki na porcję). Skyr z borówkami osobno w małym pojemniku.",
+    "Placuszki można jeść na zimno albo podgrzać 30 s."
+   ],
+   "fridgeDays": 3,
+   "freezer": true,
+   "batch": true,
+   "tags": [
+    "do pracy",
+    "na zapas",
+    "owies",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "cynamon",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 482.0,
+    "protein": 32.3,
+    "fat": 13.0,
+    "satFat": 3.2,
+    "carbs": 56.2,
+    "fiber": 7.8,
+    "cost": 5.3
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "sn_owsianka_nocna",
+   "name": "Owsianka nocna ze skyrem i owocami",
+   "type": "śniadanie",
+   "servings": 1,
+   "timeMin": 5,
+   "ingredients": [
+    {
+     "id": "platki_owsiane",
+     "g": 50
+    },
+    {
+     "id": "skyr",
+     "g": 150
+    },
+    {
+     "id": "mleko",
+     "g": 100
+    },
+    {
+     "id": "borowki_mrozone",
+     "g": 80
+    },
+    {
+     "id": "miod",
+     "g": 5
+    }
+   ],
+   "steps": [
+    "Wieczorem wymieszaj w słoiku płatki, skyr, mleko i miód; na wierzch borówki.",
+    "Zakręć i wstaw do lodówki. Rano zabierz."
+   ],
+   "fridgeDays": 2,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "do pracy",
+    "bez gotowania",
+    "owies",
+    "bez pszenicy"
+   ],
+   "rating": "może",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 393.0,
+    "protein": 26.9,
+    "fat": 6.0,
+    "satFat": 2.0,
+    "carbs": 54.4,
+    "fiber": 6.9,
+    "cost": 5.1
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "sn_pasta_tunczyk",
+   "name": "Kanapki z pastą z tuńczyka i jogurtu",
+   "type": "śniadanie",
+   "servings": 1,
+   "timeMin": 7,
+   "ingredients": [
+    {
+     "id": "tunczyk",
+     "g": 80
+    },
+    {
+     "id": "jogurt",
+     "g": 40
+    },
+    {
+     "id": "kukurydza",
+     "g": 30
+    },
+    {
+     "id": "szczypiorek",
+     "g": 5
+    },
+    {
+     "id": "chleb_zytni",
+     "g": 80,
+     "note": "2 kromki"
+    },
+    {
+     "id": "ogorek",
+     "g": 100
+    }
+   ],
+   "steps": [
+    "Odsącz tuńczyka, wymieszaj z jogurtem, kukurydzą, szczypiorkiem, solą i pieprzem.",
+    "Pasta do małego pojemnika, chleb osobno (żeby nie rozmókł), ogórek w słupkach."
+   ],
+   "fridgeDays": 2,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "do pracy",
+    "ryba",
+    "bez gotowania",
+    "bez pszenicy"
+   ],
+   "rating": "może",
+   "notes": "",
+   "spices": "sól, pieprz",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 328.0,
+    "protein": 28.1,
+    "fat": 3.3,
+    "satFat": 1.1,
+    "carbs": 43.5,
+    "fiber": 8.1,
+    "cost": 6.9
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "sn_jajecznica",
+   "name": "Jajecznica z pomidorami i szczypiorkiem + chleb (weekend / w domu)",
+   "type": "śniadanie",
+   "servings": 1,
+   "timeMin": 10,
+   "ingredients": [
+    {
+     "id": "jajko",
+     "g": 180,
+     "note": "3 szt."
+    },
+    {
+     "id": "olej_rzepakowy",
+     "g": 5
+    },
+    {
+     "id": "pomidor",
+     "g": 150
+    },
+    {
+     "id": "szczypiorek",
+     "g": 10
+    },
+    {
+     "id": "chleb_zytni",
+     "g": 80,
+     "note": "2 kromki"
+    }
+   ],
+   "steps": [
+    "Na rozgrzanej patelni z olejem krótko podsmaż pokrojony pomidor.",
+    "Wbij jajka, mieszaj na małym ogniu do ścięcia, posól, posyp szczypiorkiem.",
+    "Podawaj z chlebem."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "w domu",
+    "weekend",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "sól, pieprz",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 502.0,
+    "protein": 29.0,
+    "fat": 24.0,
+    "satFat": 6.2,
+    "carbs": 40.5,
+    "fiber": 8.4,
+    "cost": 6.3
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "pr_skyr_pitny",
+   "name": "Skyr pitny",
+   "type": "przekąska",
+   "servings": 1,
+   "timeMin": 0,
+   "ingredients": [
+    {
+     "id": "skyr_pitny",
+     "g": 350
+    }
+   ],
+   "steps": [
+    "Zabierz rano z lodówki."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "do pracy",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 210.0,
+    "protein": 28.0,
+    "fat": 1.8,
+    "satFat": 1.1,
+    "carbs": 21.0,
+    "fiber": 0.0,
+    "cost": 5.2
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "pr_jablko_orzechy",
+   "name": "Jabłko + garść orzechów włoskich",
+   "type": "przekąska",
+   "servings": 1,
+   "timeMin": 0,
+   "ingredients": [
+    {
+     "id": "jablko",
+     "g": 180
+    },
+    {
+     "id": "orzechy_wloskie",
+     "g": 20
+    }
+   ],
+   "steps": [
+    "Orzechy odważ do małego pojemnika na cały tydzień (5 × 20 g)."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "do pracy",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "Orzechy włoskie wspierają profil lipidowy.",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 224.0,
+    "protein": 3.5,
+    "fat": 13.4,
+    "satFat": 1.2,
+    "carbs": 23.0,
+    "fiber": 5.7,
+    "cost": 1.8
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "pr_warzywa_hummus",
+   "name": "Marchewka i papryka z hummusem",
+   "type": "przekąska",
+   "servings": 1,
+   "timeMin": 5,
+   "ingredients": [
+    {
+     "id": "marchew",
+     "g": 100
+    },
+    {
+     "id": "papryka",
+     "g": 100
+    },
+    {
+     "id": "hummus",
+     "g": 60
+    }
+   ],
+   "steps": [
+    "Pokrój warzywa w słupki, hummus do małego pojemnika."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "do pracy",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 227.0,
+    "protein": 6.4,
+    "fat": 12.5,
+    "satFat": 1.2,
+    "carbs": 22.6,
+    "fiber": 8.4,
+    "cost": 3.6
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "pr_wafle_twarozek",
+   "name": "Wafle ryżowe z twarożkiem",
+   "type": "przekąska",
+   "servings": 1,
+   "timeMin": 3,
+   "ingredients": [
+    {
+     "id": "wafle_ryzowe",
+     "g": 30,
+     "note": "3 szt."
+    },
+    {
+     "id": "twarog",
+     "g": 60
+    },
+    {
+     "id": "jogurt",
+     "g": 15
+    },
+    {
+     "id": "rzodkiewka",
+     "g": 50
+    }
+   ],
+   "steps": [
+    "Twaróg z jogurtem i szczyptą soli do małego pojemnika; w pracy posmaruj wafle."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "do pracy",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 212.0,
+    "protein": 14.2,
+    "fat": 4.1,
+    "satFat": 2.2,
+    "carbs": 28.7,
+    "fiber": 1.7,
+    "cost": 2.6
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "pr_banan_kefir",
+   "name": "Banan + kefir",
+   "type": "przekąska",
+   "servings": 1,
+   "timeMin": 0,
+   "ingredients": [
+    {
+     "id": "banan",
+     "g": 120
+    },
+    {
+     "id": "kefir",
+     "g": 250
+    }
+   ],
+   "steps": [
+    "Bez przygotowania."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "do pracy",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 233.0,
+    "protein": 9.8,
+    "fat": 5.4,
+    "satFat": 3.4,
+    "carbs": 36.5,
+    "fiber": 3.1,
+    "cost": 2.5
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "wi_skyr_borowki",
+   "name": "Skyr z borówkami",
+   "type": "przekąska wieczorna",
+   "servings": 1,
+   "timeMin": 2,
+   "ingredients": [
+    {
+     "id": "skyr",
+     "g": 150
+    },
+    {
+     "id": "borowki_mrozone",
+     "g": 60
+    }
+   ],
+   "steps": [
+    "Wymieszaj."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "w domu",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 130.0,
+    "protein": 16.9,
+    "fat": 0.5,
+    "satFat": 0.2,
+    "carbs": 13.2,
+    "fiber": 1.4,
+    "cost": 3.7
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "wi_jajka",
+   "name": "2 jajka na twardo + ogórek",
+   "type": "przekąska wieczorna",
+   "servings": 1,
+   "timeMin": 10,
+   "ingredients": [
+    {
+     "id": "jajko",
+     "g": 120
+    },
+    {
+     "id": "ogorek",
+     "g": 100
+    }
+   ],
+   "steps": [
+    "Gotuj jajka 9 min, przelej zimną wodą. Można ugotować 6 szt. na kilka wieczorów."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "w domu",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 181.0,
+    "protein": 15.6,
+    "fat": 11.7,
+    "satFat": 3.7,
+    "carbs": 3.3,
+    "fiber": 0.7,
+    "cost": 2.8
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "wi_serek",
+   "name": "Serek wiejski ze szczypiorkiem",
+   "type": "przekąska wieczorna",
+   "servings": 1,
+   "timeMin": 1,
+   "ingredients": [
+    {
+     "id": "serek_wiejski",
+     "g": 150
+    },
+    {
+     "id": "szczypiorek",
+     "g": 5
+    }
+   ],
+   "steps": [
+    "Gotowe."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "w domu",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 152.0,
+    "protein": 16.6,
+    "fat": 7.5,
+    "satFat": 4.8,
+    "carbs": 3.2,
+    "fiber": 0.1,
+    "cost": 2.6
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "wi_kefir",
+   "name": "Kefir + kilka orzechów",
+   "type": "przekąska wieczorna",
+   "servings": 1,
+   "timeMin": 0,
+   "ingredients": [
+    {
+     "id": "kefir",
+     "g": 250
+    },
+    {
+     "id": "orzechy_wloskie",
+     "g": 5
+    }
+   ],
+   "steps": [
+    "Gotowe."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "w domu",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 158.0,
+    "protein": 9.2,
+    "fat": 8.2,
+    "satFat": 3.5,
+    "carbs": 11.6,
+    "fiber": 0.4,
+    "cost": 2.0
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "wi_jablko",
+   "name": "Jabłko + łyżeczka masła orzechowego (lub 10 g orzechów)",
+   "type": "przekąska wieczorna",
+   "servings": 1,
+   "timeMin": 1,
+   "ingredients": [
+    {
+     "id": "jablko",
+     "g": 180
+    },
+    {
+     "id": "orzechy_wloskie",
+     "g": 10
+    }
+   ],
+   "steps": [
+    "Gotowe."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "w domu",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 159.0,
+    "protein": 2.0,
+    "fat": 6.9,
+    "satFat": 0.6,
+    "carbs": 22.3,
+    "fiber": 5.0,
+    "cost": 1.3
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "lu_chilli",
+   "name": "Chilli con carne (lżejsze, dużo fasoli) z ryżem",
+   "type": "lunch",
+   "servings": 4,
+   "timeMin": 50,
+   "ingredients": [
+    {
+     "id": "wolowina_mielona",
+     "g": 400,
+     "note": "1 tacka"
+    },
+    {
+     "id": "fasola_czerwona",
+     "g": 480,
+     "note": "2 puszki"
+    },
+    {
+     "id": "kukurydza",
+     "g": 140,
+     "note": "pół puszki"
+    },
+    {
+     "id": "pomidory_puszka",
+     "g": 800,
+     "note": "2 puszki"
+    },
+    {
+     "id": "koncentrat",
+     "g": 30
+    },
+    {
+     "id": "cebula",
+     "g": 150
+    },
+    {
+     "id": "czosnek",
+     "g": 15,
+     "note": "3 ząbki"
+    },
+    {
+     "id": "papryka",
+     "g": 200
+    },
+    {
+     "id": "olej_rzepakowy",
+     "g": 10
+    },
+    {
+     "id": "ryz_basmati",
+     "g": 240
+    }
+   ],
+   "steps": [
+    "Na dużej patelni / w garnku rozgrzej olej, zeszklij posiekaną cebulę i czosnek (3 min).",
+    "Dodaj mięso, smaż rozbijając łopatką, aż się zrumienią (6–8 min).",
+    "Dodaj przyprawy: 2 łyżeczki kuminu, 2 łyżeczki papryki wędzonej, 1 łyżeczkę oregano, chili do smaku; smaż 1 min.",
+    "Dodaj pokrojoną paprykę, koncentrat, pomidory z puszki; duś 20 min pod przykryciem.",
+    "Dodaj odsączoną fasolę i kukurydzę, duś jeszcze 10 min. Dopraw solą i pieprzem.",
+    "W międzyczasie ugotuj ryż. Rozłóż do 4 pojemników: ryż + chilli."
+   ],
+   "fridgeDays": 3,
+   "freezer": true,
+   "batch": true,
+   "tags": [
+    "na zapas",
+    "strączki",
+    "bez pszenicy",
+    "mrozi się"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "kumin, papryka wędzona, oregano, chili, sól, pieprz",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 649.0,
+    "protein": 37.9,
+    "fat": 14.5,
+    "satFat": 4.7,
+    "carbs": 85.9,
+    "fiber": 13.6,
+    "cost": 9.4
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "lu_teriyaki",
+   "name": "Kurczak teriyaki z ryżem, brokułem i marchewką",
+   "type": "lunch",
+   "servings": 4,
+   "timeMin": 35,
+   "ingredients": [
+    {
+     "id": "piers_kurczaka",
+     "g": 700
+    },
+    {
+     "id": "ryz_basmati",
+     "g": 320
+    },
+    {
+     "id": "brokul",
+     "g": 450,
+     "note": "1 szt."
+    },
+    {
+     "id": "marchew",
+     "g": 160,
+     "note": "2 szt."
+    },
+    {
+     "id": "sos_sojowy",
+     "g": 60,
+     "note": "4 łyżki"
+    },
+    {
+     "id": "miod",
+     "g": 30,
+     "note": "3 łyżeczki"
+    },
+    {
+     "id": "imbir",
+     "g": 15
+    },
+    {
+     "id": "czosnek",
+     "g": 10,
+     "note": "2 ząbki"
+    },
+    {
+     "id": "skrobia",
+     "g": 10
+    },
+    {
+     "id": "olej_rzepakowy",
+     "g": 20
+    },
+    {
+     "id": "sezam",
+     "g": 8
+    }
+   ],
+   "steps": [
+    "Sos: wymieszaj sos sojowy, miód, starty imbir i czosnek, skrobię i 100 ml wody.",
+    "Ugotuj ryż. Brokuła podziel na różyczki, marchew pokrój w plasterki; gotuj na parze lub w wodzie 4 min.",
+    "Kurczaka pokrój w kostkę, smaż na oleju na dużym ogniu 6–7 min.",
+    "Wlej sos, gotuj 1–2 min aż zgęstnieje i oblepi mięso.",
+    "Do pojemników: ryż, warzywa, kurczak z sosem, posyp sezamem."
+   ],
+   "fridgeDays": 3,
+   "freezer": true,
+   "batch": true,
+   "tags": [
+    "na zapas",
+    "azjatyckie"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "sos tamari zamiast sojowego (gdy je dziewczyna)",
+   "perServing": {
+    "kcal": 610.0,
+    "protein": 49.3,
+    "fat": 9.3,
+    "satFat": 1.3,
+    "carbs": 81.9,
+    "fiber": 5.5,
+    "cost": 8.4
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "lu_udon",
+   "name": "Udon z kurczakiem i warzywami stir-fry",
+   "type": "lunch",
+   "servings": 4,
+   "timeMin": 25,
+   "ingredients": [
+    {
+     "id": "udon",
+     "g": 1000,
+     "note": "5 paczek"
+    },
+    {
+     "id": "piers_kurczaka",
+     "g": 700
+    },
+    {
+     "id": "warzywa_patelnia",
+     "g": 600
+    },
+    {
+     "id": "sos_sojowy",
+     "g": 50
+    },
+    {
+     "id": "miod",
+     "g": 20
+    },
+    {
+     "id": "imbir",
+     "g": 10
+    },
+    {
+     "id": "czosnek",
+     "g": 10
+    },
+    {
+     "id": "olej_rzepakowy",
+     "g": 15
+    },
+    {
+     "id": "sriracha",
+     "g": 10
+    }
+   ],
+   "steps": [
+    "Kurczaka pokrój w paski, smaż na mocnym ogniu na połowie oleju 5–6 min; zdejmij.",
+    "Na reszcie oleju smaż mrożone warzywa 5 min (bez przykrycia, żeby nie puściły wody).",
+    "Dodaj czosnek i imbir, potem udon (wcześniej zalany na 1 min wrzątkiem i odsączony).",
+    "Wlej sos sojowy z miodem i srirachą, wrzuć kurczaka, wymieszaj 1–2 min.",
+    "Podziel do 4 pojemników."
+   ],
+   "fridgeDays": 3,
+   "freezer": false,
+   "batch": true,
+   "tags": [
+    "na zapas",
+    "azjatyckie"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "makaron ryżowy + tamari",
+   "perServing": {
+    "kcal": 629.0,
+    "protein": 50.6,
+    "fat": 7.8,
+    "satFat": 1.0,
+    "carbs": 86.0,
+    "fiber": 7.1,
+    "cost": 12.4
+   },
+   "wheatMain": true
+  },
+  {
+   "id": "lu_curry",
+   "name": "Curry z kurczakiem, ciecierzycą i warzywami (mleko kokosowe light) z ryżem",
+   "type": "lunch",
+   "servings": 4,
+   "timeMin": 35,
+   "ingredients": [
+    {
+     "id": "piers_kurczaka",
+     "g": 700
+    },
+    {
+     "id": "ciecierzyca",
+     "g": 240,
+     "note": "1 puszka"
+    },
+    {
+     "id": "mleko_kokosowe",
+     "g": 200,
+     "note": "pół puszki"
+    },
+    {
+     "id": "passata",
+     "g": 300
+    },
+    {
+     "id": "cebula",
+     "g": 150
+    },
+    {
+     "id": "czosnek",
+     "g": 10
+    },
+    {
+     "id": "imbir",
+     "g": 15
+    },
+    {
+     "id": "cukinia",
+     "g": 300
+    },
+    {
+     "id": "papryka",
+     "g": 200
+    },
+    {
+     "id": "szpinak",
+     "g": 75
+    },
+    {
+     "id": "olej_rzepakowy",
+     "g": 10
+    },
+    {
+     "id": "ryz_basmati",
+     "g": 320
+    }
+   ],
+   "steps": [
+    "Zeszklij cebulę na oleju, dodaj czosnek, imbir i 2 łyżki curry + 1 łyżeczkę kurkumy; smaż 1 min.",
+    "Dodaj kurczaka w kostce, obsmaż 5 min.",
+    "Dodaj cukinię i paprykę w kostce, passatę i mleko kokosowe; duś 12–15 min.",
+    "Dodaj odsączoną ciecierzycę na ostatnie 5 min. Na koniec wmieszaj szpinak. Dopraw solą, ewentualnie sokiem z limonki.",
+    "Ugotuj ryż, rozłóż do pojemników."
+   ],
+   "fridgeDays": 3,
+   "freezer": true,
+   "batch": true,
+   "tags": [
+    "na zapas",
+    "strączki",
+    "bez pszenicy",
+    "mrozi się"
+   ],
+   "rating": "chcę",
+   "notes": "Mleko kokosowe tylko pół puszki light — ograniczenie tłuszczów nasyconych.",
+   "spices": "curry, kurkuma, sól",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 659.0,
+    "protein": 52.2,
+    "fat": 10.6,
+    "satFat": 4.1,
+    "carbs": 87.1,
+    "fiber": 8.5,
+    "cost": 10.2
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "lu_tikka",
+   "name": "Kurczak tikka masala na jogurcie z ryżem i groszkiem",
+   "type": "lunch",
+   "servings": 4,
+   "timeMin": 40,
+   "ingredients": [
+    {
+     "id": "piers_kurczaka",
+     "g": 650
+    },
+    {
+     "id": "jogurt",
+     "g": 300
+    },
+    {
+     "id": "passata",
+     "g": 400
+    },
+    {
+     "id": "cebula",
+     "g": 150
+    },
+    {
+     "id": "czosnek",
+     "g": 15
+    },
+    {
+     "id": "imbir",
+     "g": 15
+    },
+    {
+     "id": "olej_rzepakowy",
+     "g": 10
+    },
+    {
+     "id": "groszek",
+     "g": 300
+    },
+    {
+     "id": "ryz_basmati",
+     "g": 320
+    },
+    {
+     "id": "kolendra",
+     "g": 10
+    }
+   ],
+   "steps": [
+    "Marynata: kurczak w kostce + 100 g jogurtu + 2 łyżeczki garam masala + czosnek + imbir + sól; min. 15 min (albo z wieczora).",
+    "Obsmaż kurczaka na oleju 5–6 min; zdejmij.",
+    "Na tej samej patelni zeszklij cebulę, dodaj 1 łyżeczkę garam masala i paprykę; wlej passatę, duś 10 min.",
+    "Zdejmij z ognia, wmieszaj resztę jogurtu (żeby się nie zważył), dodaj kurczaka i groszek, podgrzej 3 min.",
+    "Ryż + tikka do pojemników, posyp kolendrą."
+   ],
+   "fridgeDays": 3,
+   "freezer": true,
+   "batch": true,
+   "tags": [
+    "na zapas",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "garam masala, papryka słodka, sól",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 621.0,
+    "protein": 50.9,
+    "fat": 7.2,
+    "satFat": 1.9,
+    "carbs": 88.3,
+    "fiber": 6.8,
+    "cost": 8.0
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "lu_pulpety",
+   "name": "Pulpety drobiowe w sosie pomidorowym z kaszą gryczaną",
+   "type": "lunch",
+   "servings": 4,
+   "timeMin": 45,
+   "ingredients": [
+    {
+     "id": "indyk_mielony",
+     "g": 650
+    },
+    {
+     "id": "jajko",
+     "g": 60,
+     "note": "1 szt."
+    },
+    {
+     "id": "platki_owsiane",
+     "g": 40
+    },
+    {
+     "id": "cebula",
+     "g": 100
+    },
+    {
+     "id": "czosnek",
+     "g": 10
+    },
+    {
+     "id": "passata",
+     "g": 700
+    },
+    {
+     "id": "marchew",
+     "g": 160
+    },
+    {
+     "id": "olej_rzepakowy",
+     "g": 5
+    },
+    {
+     "id": "kasza_gryczana",
+     "g": 300
+    }
+   ],
+   "steps": [
+    "Wymieszaj mięso, jajko, płatki owsiane, połowę startej cebuli, czosnek, sól, pieprz, majeranek.",
+    "Uformuj ok. 20 pulpetów.",
+    "W garnku na oleju zeszklij resztę cebuli i startą marchew, wlej passatę + 150 ml wody, zagotuj.",
+    "Włóż pulpety do sosu, gotuj pod przykryciem 20 min na małym ogniu.",
+    "Ugotuj kaszę, rozłóż do pojemników."
+   ],
+   "fridgeDays": 3,
+   "freezer": true,
+   "batch": true,
+   "tags": [
+    "na zapas",
+    "owies",
+    "bez pszenicy",
+    "mrozi się"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "majeranek, oregano, sól, pieprz",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 622.0,
+    "protein": 48.4,
+    "fat": 15.1,
+    "satFat": 3.7,
+    "carbs": 72.3,
+    "fiber": 12.2,
+    "cost": 7.3
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "lu_gulasz",
+   "name": "Gulasz wołowy z pieczarkami i papryką z kaszą gryczaną",
+   "type": "lunch",
+   "servings": 4,
+   "timeMin": 90,
+   "ingredients": [
+    {
+     "id": "wolowina_gulasz",
+     "g": 700
+    },
+    {
+     "id": "cebula",
+     "g": 200
+    },
+    {
+     "id": "papryka",
+     "g": 300
+    },
+    {
+     "id": "pieczarki",
+     "g": 300
+    },
+    {
+     "id": "koncentrat",
+     "g": 30
+    },
+    {
+     "id": "skrobia",
+     "g": 10
+    },
+    {
+     "id": "olej_rzepakowy",
+     "g": 10
+    },
+    {
+     "id": "kasza_gryczana",
+     "g": 300
+    },
+    {
+     "id": "ogorek",
+     "g": 300
+    }
+   ],
+   "steps": [
+    "Wołowinę pokrój w kostkę, obsmaż partiami na oleju; przełóż do garnka.",
+    "Na patelni zeszklij cebulę, dodaj do mięsa z 2 łyżeczkami papryki słodkiej, liściem laurowym, zielem angielskim.",
+    "Zalej wodą do przykrycia, duś pod przykryciem 60 min.",
+    "Dodaj paprykę, pieczarki i koncentrat, duś 20 min. Zagęść skrobią rozmieszaną w zimnej wodzie.",
+    "Kasza + gulasz do pojemników; świeży ogórek osobno."
+   ],
+   "fridgeDays": 3,
+   "freezer": true,
+   "batch": true,
+   "tags": [
+    "na zapas",
+    "bez pszenicy",
+    "mrozi się"
+   ],
+   "rating": "chcę",
+   "notes": "Najdłuższe gotowanie — dobre na niedzielę.",
+   "spices": "papryka słodka, liść laurowy, ziele angielskie, sól, pieprz",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 592.0,
+    "protein": 50.5,
+    "fat": 14.1,
+    "satFat": 4.1,
+    "carbs": 66.1,
+    "fiber": 11.4,
+    "cost": 12.9
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "lu_blacha",
+   "name": "Kurczak z blachy z ziemniakami i warzywami",
+   "type": "lunch",
+   "servings": 4,
+   "timeMin": 50,
+   "ingredients": [
+    {
+     "id": "udka_filet",
+     "g": 800
+    },
+    {
+     "id": "ziemniaki",
+     "g": 1200
+    },
+    {
+     "id": "papryka",
+     "g": 300
+    },
+    {
+     "id": "cukinia",
+     "g": 300
+    },
+    {
+     "id": "cebula_czerwona",
+     "g": 150
+    },
+    {
+     "id": "oliwa",
+     "g": 30
+    },
+    {
+     "id": "czosnek",
+     "g": 10
+    }
+   ],
+   "steps": [
+    "Piekarnik 200°C. Ziemniaki pokrój w ćwiartki, warzywa w duże kawałki, kurczaka w kawałki.",
+    "Wszystko na blachę, polej oliwą, posyp czosnkiem, papryką wędzoną, ziołami prowansalskimi, solą; wymieszaj rękami.",
+    "Piecz 40 min, w połowie przemieszaj.",
+    "Rozłóż do 4 pojemników."
+   ],
+   "fridgeDays": 3,
+   "freezer": false,
+   "batch": true,
+   "tags": [
+    "na zapas",
+    "bez pszenicy",
+    "jedna blacha"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "papryka wędzona, zioła prowansalskie, sól",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 591.0,
+    "protein": 46.2,
+    "fat": 17.3,
+    "satFat": 3.7,
+    "carbs": 62.0,
+    "fiber": 9.5,
+    "cost": 8.8
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "lu_zapiekanka",
+   "name": "Zapiekanka makaronowa z kurczakiem i brokułem",
+   "type": "lunch",
+   "servings": 4,
+   "timeMin": 40,
+   "ingredients": [
+    {
+     "id": "makaron_pelnoziarnisty",
+     "g": 320
+    },
+    {
+     "id": "piers_kurczaka",
+     "g": 600
+    },
+    {
+     "id": "brokul",
+     "g": 450
+    },
+    {
+     "id": "jogurt",
+     "g": 200
+    },
+    {
+     "id": "jajko",
+     "g": 60,
+     "note": "1 szt."
+    },
+    {
+     "id": "mozzarella_light",
+     "g": 125
+    },
+    {
+     "id": "czosnek",
+     "g": 10
+    },
+    {
+     "id": "olej_rzepakowy",
+     "g": 5
+    }
+   ],
+   "steps": [
+    "Piekarnik 190°C. Ugotuj makaron 2 min krócej niż na opakowaniu; brokuł zblanszuj 3 min.",
+    "Kurczaka w kostce podsmaż 5 min z czosnkiem, solą i pieprzem.",
+    "Wymieszaj jogurt z jajkiem, solą, pieprzem i gałką.",
+    "W naczyniu żaroodpornym wymieszaj makaron, brokuł, kurczaka i sos; na wierzch porwana mozzarella.",
+    "Piecz 20 min. Podziel na 4 porcje."
+   ],
+   "fridgeDays": 3,
+   "freezer": false,
+   "batch": true,
+   "tags": [
+    "na zapas"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "sól, pieprz, gałka muszkatołowa",
+   "wheatSwap": "nie dla dziewczyny (makaron pszenny w roli głównej)",
+   "perServing": {
+    "kcal": 583.0,
+    "protein": 56.0,
+    "fat": 10.9,
+    "satFat": 4.0,
+    "carbs": 59.9,
+    "fiber": 10.2,
+    "cost": 8.4
+   },
+   "wheatMain": true
+  },
+  {
+   "id": "lu_burrito",
+   "name": "Burrito bowl: ryż, fasola, kurczak, kukurydza, salsa",
+   "type": "lunch",
+   "servings": 4,
+   "timeMin": 35,
+   "ingredients": [
+    {
+     "id": "ryz_basmati",
+     "g": 300
+    },
+    {
+     "id": "piers_kurczaka",
+     "g": 600
+    },
+    {
+     "id": "fasola_czerwona",
+     "g": 480,
+     "note": "2 puszki"
+    },
+    {
+     "id": "kukurydza",
+     "g": 140
+    },
+    {
+     "id": "papryka",
+     "g": 200
+    },
+    {
+     "id": "pomidor",
+     "g": 240
+    },
+    {
+     "id": "cebula_czerwona",
+     "g": 80
+    },
+    {
+     "id": "limonka",
+     "g": 60
+    },
+    {
+     "id": "jogurt",
+     "g": 150
+    },
+    {
+     "id": "olej_rzepakowy",
+     "g": 10
+    },
+    {
+     "id": "kolendra",
+     "g": 10
+    }
+   ],
+   "steps": [
+    "Kurczaka natrzyj kuminem, papryką wędzoną, czosnkiem granulowanym, solą; smaż 6–7 min, pokrój w paski.",
+    "Ugotuj ryż, wymieszaj z sokiem z połowy limonki.",
+    "Salsa: pomidory, czerwona cebula, kolendra, sok z limonki, sól.",
+    "Fasolę z kukurydzą podgrzej z odrobiną kuminu (albo zostaw na zimno). Paprykę pokrój w paski.",
+    "Do pojemników: ryż, fasola z kukurydzą, kurczak, papryka. Salsę i jogurt (sos) osobno w małym pojemniku."
+   ],
+   "fridgeDays": 3,
+   "freezer": false,
+   "batch": true,
+   "tags": [
+    "na zapas",
+    "strączki",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "kumin, papryka wędzona, czosnek granulowany, sól",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 649.0,
+    "protein": 50.6,
+    "fat": 7.0,
+    "satFat": 1.5,
+    "carbs": 91.6,
+    "fiber": 12.4,
+    "cost": 9.3
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "lu_kotlety",
+   "name": "Kotlety mielone drobiowe z piekarnika + ziemniaki + marchewka z jabłkiem",
+   "type": "lunch",
+   "servings": 4,
+   "timeMin": 45,
+   "ingredients": [
+    {
+     "id": "indyk_mielony",
+     "g": 700
+    },
+    {
+     "id": "jajko",
+     "g": 60,
+     "note": "1 szt."
+    },
+    {
+     "id": "platki_owsiane",
+     "g": 40
+    },
+    {
+     "id": "cebula",
+     "g": 100
+    },
+    {
+     "id": "olej_rzepakowy",
+     "g": 10
+    },
+    {
+     "id": "ziemniaki",
+     "g": 1200
+    },
+    {
+     "id": "marchew",
+     "g": 300
+    },
+    {
+     "id": "jablko",
+     "g": 180
+    },
+    {
+     "id": "jogurt",
+     "g": 50
+    }
+   ],
+   "steps": [
+    "Piekarnik 200°C. Wymieszaj mięso, jajko, płatki, startą cebulę, sól, pieprz, majeranek; uformuj 8 kotletów.",
+    "Ułóż na blasze z papierem, posmaruj olejem, piecz 20–25 min, w połowie obróć.",
+    "Ugotuj ziemniaki.",
+    "Surówka: zetrzyj marchew i jabłko, wymieszaj z jogurtem i sokiem z cytryny.",
+    "Do pojemników: 2 kotlety, ziemniaki, surówka osobno."
+   ],
+   "fridgeDays": 3,
+   "freezer": true,
+   "batch": true,
+   "tags": [
+    "na zapas",
+    "owies",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "majeranek, sól, pieprz",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 610.0,
+    "protein": 45.8,
+    "fat": 15.1,
+    "satFat": 3.7,
+    "carbs": 73.0,
+    "fiber": 11.2,
+    "cost": 7.4
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "lu_makaron_szpinak",
+   "name": "Makaron z kurczakiem i pieczarkami w lekkim sosie szpinakowym",
+   "type": "lunch",
+   "servings": 4,
+   "timeMin": 30,
+   "ingredients": [
+    {
+     "id": "makaron_pelnoziarnisty",
+     "g": 320
+    },
+    {
+     "id": "piers_kurczaka",
+     "g": 650
+    },
+    {
+     "id": "szpinak",
+     "g": 150
+    },
+    {
+     "id": "pieczarki",
+     "g": 250
+    },
+    {
+     "id": "cebula",
+     "g": 100
+    },
+    {
+     "id": "czosnek",
+     "g": 10
+    },
+    {
+     "id": "jogurt",
+     "g": 200
+    },
+    {
+     "id": "skrobia",
+     "g": 10
+    },
+    {
+     "id": "ser_light",
+     "g": 60
+    },
+    {
+     "id": "olej_rzepakowy",
+     "g": 10
+    }
+   ],
+   "steps": [
+    "Ugotuj makaron al dente (odlej szklankę wody z makaronu).",
+    "Kurczaka w kostce obsmaż na oleju 5 min, dodaj cebulę, pieczarki, czosnek; smaż 5 min.",
+    "Jogurt wymieszaj ze skrobią (nie zważy się), wlej na patelnię na małym ogniu, dodaj starty ser i szpinak.",
+    "Rozrzedź wodą z makaronu, wmieszaj makaron, dopraw solą, pieprzem, gałką.",
+    "Podziel do 4 pojemników."
+   ],
+   "fridgeDays": 3,
+   "freezer": false,
+   "batch": true,
+   "tags": [
+    "na zapas"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "sól, pieprz, gałka muszkatołowa",
+   "wheatSwap": "nie dla dziewczyny (makaron pszenny)",
+   "perServing": {
+    "kcal": 576.0,
+    "protein": 55.5,
+    "fat": 10.4,
+    "satFat": 3.3,
+    "carbs": 62.9,
+    "fiber": 9.1,
+    "cost": 8.6
+   },
+   "wheatMain": true
+  },
+  {
+   "id": "lu_bulgur_warzywa",
+   "name": "Bulgur z pieczonymi warzywami, kurczakiem, ciecierzycą i fetą",
+   "type": "lunch",
+   "servings": 4,
+   "timeMin": 45,
+   "ingredients": [
+    {
+     "id": "bulgur",
+     "g": 280
+    },
+    {
+     "id": "piers_kurczaka",
+     "g": 400
+    },
+    {
+     "id": "ciecierzyca",
+     "g": 240
+    },
+    {
+     "id": "cukinia",
+     "g": 300
+    },
+    {
+     "id": "papryka",
+     "g": 300
+    },
+    {
+     "id": "baklazan",
+     "g": 300
+    },
+    {
+     "id": "cebula_czerwona",
+     "g": 150
+    },
+    {
+     "id": "feta_light",
+     "g": 160
+    },
+    {
+     "id": "oliwa",
+     "g": 25
+    }
+   ],
+   "steps": [
+    "Piekarnik 210°C. Warzywa i ciecierzycę w kostce wymieszaj z oliwą, solą, czosnkiem granulowanym, kuminem i oregano; piecz 30 min.",
+    "Kurczaka przypraw tak samo, połóż na tej samej blasze po 10 min pieczenia (piecz ok. 20 min).",
+    "Bulgur zalej 2 × objętością wrzątku z solą, przykryj na 15 min.",
+    "Wymieszaj bulgur z warzywami, pokrojony kurczak na wierzch, feta pokruszona przed jedzeniem (osobno)."
+   ],
+   "fridgeDays": 3,
+   "freezer": false,
+   "batch": true,
+   "tags": [
+    "na zapas",
+    "strączki",
+    "jedna blacha"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "kumin, oregano, czosnek granulowany, sól",
+   "wheatSwap": "kasza gryczana zamiast bulguru",
+   "perServing": {
+    "kcal": 608.0,
+    "protein": 42.5,
+    "fat": 15.1,
+    "satFat": 4.7,
+    "carbs": 72.5,
+    "fiber": 17.1,
+    "cost": 8.8
+   },
+   "wheatMain": true
+  },
+  {
+   "id": "lu_wolowina_koreanska",
+   "name": "Wołowina po koreańsku (mielona) z ryżem, brokułem i ogórkiem",
+   "type": "lunch",
+   "servings": 4,
+   "timeMin": 25,
+   "ingredients": [
+    {
+     "id": "wolowina_mielona",
+     "g": 400,
+     "note": "1 tacka"
+    },
+    {
+     "id": "ryz_basmati",
+     "g": 360
+    },
+    {
+     "id": "sos_sojowy",
+     "g": 50
+    },
+    {
+     "id": "miod",
+     "g": 20
+    },
+    {
+     "id": "czosnek",
+     "g": 15
+    },
+    {
+     "id": "imbir",
+     "g": 15
+    },
+    {
+     "id": "sezam",
+     "g": 8
+    },
+    {
+     "id": "olej_rzepakowy",
+     "g": 5
+    },
+    {
+     "id": "marchew",
+     "g": 160
+    },
+    {
+     "id": "brokul_mrozony",
+     "g": 450
+    },
+    {
+     "id": "ogorek",
+     "g": 250
+    }
+   ],
+   "steps": [
+    "Ugotuj ryż. Brokuł z mrożonki ugotuj 4 min.",
+    "Mięso smaż na odrobinie oleju 6–8 min, aż się zrumieni; odlej nadmiar tłuszczu.",
+    "Dodaj czosnek, imbir i startą marchew, smaż 2 min.",
+    "Wlej sos sojowy z miodem i płatkami chili, zredukuj 2 min. Posyp sezamem.",
+    "Pojemniki: ryż, wołowina, brokuł; ogórek w plasterkach osobno (z odrobiną octu ryżowego)."
+   ],
+   "fridgeDays": 3,
+   "freezer": false,
+   "batch": true,
+   "tags": [
+    "na zapas",
+    "azjatyckie"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "płatki chili, ocet ryżowy",
+   "wheatSwap": "tamari zamiast sosu sojowego",
+   "perServing": {
+    "kcal": 604.0,
+    "protein": 32.4,
+    "fat": 13.3,
+    "satFat": 4.7,
+    "carbs": 87.4,
+    "fiber": 6.0,
+    "cost": 7.8
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "ko_tosty",
+   "name": "Tosty z chleba żytniego z serem, szynką i pomidorem",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 8,
+   "ingredients": [
+    {
+     "id": "chleb_zytni",
+     "g": 120,
+     "note": "3 kromki"
+    },
+    {
+     "id": "ser_light",
+     "g": 40,
+     "note": "2 plastry"
+    },
+    {
+     "id": "szynka_drobiowa",
+     "g": 60
+    },
+    {
+     "id": "pomidor",
+     "g": 150
+    },
+    {
+     "id": "ogorek",
+     "g": 100
+    }
+   ],
+   "steps": [
+    "Złóż tosty z serem i szynką, opiecz w tosterze / na patelni.",
+    "Pomidor i ogórek obok."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "szybkie",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 470.0,
+    "protein": 32.0,
+    "fat": 10.1,
+    "satFat": 4.8,
+    "carbs": 59.2,
+    "fiber": 12.1,
+    "cost": 8.0
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "ko_kanapki_twarozek",
+   "name": "Kanapki z twarożkiem, szczypiorkiem i rzodkiewką",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 7,
+   "ingredients": [
+    {
+     "id": "twarog",
+     "g": 150
+    },
+    {
+     "id": "jogurt",
+     "g": 40
+    },
+    {
+     "id": "chleb_zytni",
+     "g": 120,
+     "note": "3 kromki"
+    },
+    {
+     "id": "rzodkiewka",
+     "g": 100
+    },
+    {
+     "id": "szczypiorek",
+     "g": 10
+    }
+   ],
+   "steps": [
+    "Twaróg rozgnieć z jogurtem, szczypiorkiem, solą i pieprzem.",
+    "Na chleb, rzodkiewka w plasterkach na wierzch."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "szybkie",
+    "bez gotowania",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 506.0,
+    "protein": 37.0,
+    "fat": 9.8,
+    "satFat": 5.4,
+    "carbs": 61.8,
+    "fiber": 11.4,
+    "cost": 6.4
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "ko_kanapki_serek",
+   "name": "Kanapki z serkiem wiejskim, pomidorem i szynką",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 5,
+   "ingredients": [
+    {
+     "id": "serek_wiejski",
+     "g": 200
+    },
+    {
+     "id": "chleb_zytni",
+     "g": 100
+    },
+    {
+     "id": "szynka_drobiowa",
+     "g": 50
+    },
+    {
+     "id": "pomidor",
+     "g": 150
+    }
+   ],
+   "steps": [
+    "Chleb, szynka, serek, pomidor w plastrach, pieprz."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "szybkie",
+    "bez gotowania",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 497.0,
+    "protein": 38.4,
+    "fat": 13.1,
+    "satFat": 7.1,
+    "carbs": 52.0,
+    "fiber": 9.8,
+    "cost": 7.8
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "ko_jajko_sadzone",
+   "name": "Kanapki z jajkiem sadzonym, serem i warzywami",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 8,
+   "ingredients": [
+    {
+     "id": "chleb_zytni",
+     "g": 80,
+     "note": "2 kromki"
+    },
+    {
+     "id": "jajko",
+     "g": 120,
+     "note": "2 szt."
+    },
+    {
+     "id": "ser_light",
+     "g": 20
+    },
+    {
+     "id": "olej_rzepakowy",
+     "g": 3
+    },
+    {
+     "id": "pomidor",
+     "g": 100
+    },
+    {
+     "id": "salata",
+     "g": 30
+    }
+   ],
+   "steps": [
+    "Usmaż 2 jajka sadzone na kropli oleju.",
+    "Chleb + sałata + plaster sera + jajko + pomidor."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "szybkie",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 446.0,
+    "protein": 27.1,
+    "fat": 19.3,
+    "satFat": 6.2,
+    "carbs": 38.9,
+    "fiber": 8.0,
+    "cost": 5.5
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "ko_jajecznica",
+   "name": "Jajecznica z pomidorami i szczypiorkiem + chleb",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 10,
+   "ingredients": [
+    {
+     "id": "jajko",
+     "g": 180,
+     "note": "3 szt."
+    },
+    {
+     "id": "olej_rzepakowy",
+     "g": 5
+    },
+    {
+     "id": "pomidor",
+     "g": 150
+    },
+    {
+     "id": "szczypiorek",
+     "g": 10
+    },
+    {
+     "id": "chleb_zytni",
+     "g": 80
+    }
+   ],
+   "steps": [
+    "Jak śniadanie weekendowe."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "szybkie",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 502.0,
+    "protein": 29.0,
+    "fat": 24.0,
+    "satFat": 6.2,
+    "carbs": 40.5,
+    "fiber": 8.4,
+    "cost": 6.3
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "ko_wrap_kurczak",
+   "name": "Wrap z kurczakiem, warzywami i sosem jogurtowo-czosnkowym",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 15,
+   "ingredients": [
+    {
+     "id": "tortilla",
+     "g": 62
+    },
+    {
+     "id": "piers_kurczaka",
+     "g": 150
+    },
+    {
+     "id": "olej_rzepakowy",
+     "g": 5
+    },
+    {
+     "id": "salata",
+     "g": 40
+    },
+    {
+     "id": "pomidor",
+     "g": 100
+    },
+    {
+     "id": "ogorek",
+     "g": 60
+    },
+    {
+     "id": "jogurt",
+     "g": 60
+    },
+    {
+     "id": "czosnek",
+     "g": 3
+    }
+   ],
+   "steps": [
+    "Kurczaka pokrój w paski, przypraw papryką i solą, smaż 6 min.",
+    "Sos: jogurt + przeciśnięty czosnek + sól + koperek / zioła.",
+    "Tortillę podgrzej 20 s na suchej patelni, nałóż warzywa, kurczaka i sos, zawiń."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "szybkie"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "papryka, sól",
+   "wheatSwap": "tortilla kukurydziana albo miska z ryżem",
+   "perServing": {
+    "kcal": 450.0,
+    "protein": 42.5,
+    "fat": 12.8,
+    "satFat": 3.1,
+    "carbs": 39.9,
+    "fiber": 5.9,
+    "cost": 8.7
+   },
+   "wheatMain": true
+  },
+  {
+   "id": "ko_wrap_losos",
+   "name": "Wrap z łososiem wędzonym, hummusem i warzywami",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 5,
+   "ingredients": [
+    {
+     "id": "tortilla",
+     "g": 62
+    },
+    {
+     "id": "hummus",
+     "g": 40
+    },
+    {
+     "id": "losos_wedzony",
+     "g": 70
+    },
+    {
+     "id": "salata",
+     "g": 30
+    },
+    {
+     "id": "ogorek",
+     "g": 80
+    },
+    {
+     "id": "papryka",
+     "g": 60
+    }
+   ],
+   "steps": [
+    "Tortillę posmaruj hummusem, ułóż sałatę, łososia, ogórek i paprykę w paskach; zawiń."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "szybkie",
+    "bez gotowania",
+    "ryba"
+   ],
+   "rating": "chcę",
+   "notes": "Propozycja dietetyka: łatwa ryba bez gotowania (omega-3).",
+   "spices": "",
+   "wheatSwap": "tortilla kukurydziana",
+   "perServing": {
+    "kcal": 449.0,
+    "protein": 25.4,
+    "fat": 19.7,
+    "satFat": 3.8,
+    "carbs": 40.0,
+    "fiber": 8.3,
+    "cost": 11.4
+   },
+   "wheatMain": true
+  },
+  {
+   "id": "ko_wrap_hummus",
+   "name": "Wrap z hummusem, fetą, ciecierzycą i warzywami",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 5,
+   "ingredients": [
+    {
+     "id": "tortilla",
+     "g": 62
+    },
+    {
+     "id": "hummus",
+     "g": 40
+    },
+    {
+     "id": "feta_light",
+     "g": 50
+    },
+    {
+     "id": "ciecierzyca",
+     "g": 70
+    },
+    {
+     "id": "salata",
+     "g": 30
+    },
+    {
+     "id": "pomidor",
+     "g": 80
+    },
+    {
+     "id": "ogorek",
+     "g": 60
+    }
+   ],
+   "steps": [
+    "Tortilla + hummus + pokruszona feta + ciecierzyca + warzywa; zawiń."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "szybkie",
+    "bez gotowania",
+    "strączki"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "tortilla kukurydziana",
+   "perServing": {
+    "kcal": 491.0,
+    "protein": 21.9,
+    "fat": 20.0,
+    "satFat": 6.5,
+    "carbs": 50.0,
+    "fiber": 12.1,
+    "cost": 6.9
+   },
+   "wheatMain": true
+  },
+  {
+   "id": "ko_quesadilla",
+   "name": "Quesadilla z kurczakiem i fasolą",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 12,
+   "ingredients": [
+    {
+     "id": "tortilla",
+     "g": 62
+    },
+    {
+     "id": "piers_kurczaka",
+     "g": 100
+    },
+    {
+     "id": "fasola_czerwona",
+     "g": 60
+    },
+    {
+     "id": "kukurydza",
+     "g": 30
+    },
+    {
+     "id": "mozzarella_light",
+     "g": 40
+    },
+    {
+     "id": "papryka",
+     "g": 50
+    },
+    {
+     "id": "pomidor",
+     "g": 100
+    }
+   ],
+   "steps": [
+    "Kurczaka w drobnej kostce podsmaż 5 min z kuminem i papryką.",
+    "Na połowę tortilli: ser, kurczak, rozgnieciona fasola, kukurydza, papryka; złóż na pół.",
+    "Smaż na suchej patelni 2–3 min z każdej strony. Pomidor jako salsa obok."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "szybkie",
+    "strączki"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "kumin, papryka",
+   "wheatSwap": "tortilla kukurydziana",
+   "perServing": {
+    "kcal": 472.0,
+    "protein": 41.0,
+    "fat": 10.2,
+    "satFat": 4.4,
+    "carbs": 49.2,
+    "fiber": 10.7,
+    "cost": 8.2
+   },
+   "wheatMain": true
+  },
+  {
+   "id": "ko_pizza_tortilla",
+   "name": "Pizza na tortilli z szynką i pieczarkami",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 12,
+   "ingredients": [
+    {
+     "id": "tortilla",
+     "g": 62
+    },
+    {
+     "id": "passata",
+     "g": 60
+    },
+    {
+     "id": "mozzarella_light",
+     "g": 70
+    },
+    {
+     "id": "szynka_drobiowa",
+     "g": 60
+    },
+    {
+     "id": "pieczarki",
+     "g": 60
+    },
+    {
+     "id": "papryka",
+     "g": 50
+    },
+    {
+     "id": "salata",
+     "g": 50
+    }
+   ],
+   "steps": [
+    "Piekarnik 220°C (góra-dół lub termoobieg).",
+    "Tortilla na blachę, passata z oregano, mozzarella, szynka, pieczarki, papryka.",
+    "Piecz 7–9 min. Sałata obok."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "szybkie"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "oregano",
+   "wheatSwap": "tortilla kukurydziana",
+   "perServing": {
+    "kcal": 415.0,
+    "protein": 33.5,
+    "fat": 12.7,
+    "satFat": 6.2,
+    "carbs": 40.5,
+    "fiber": 6.7,
+    "cost": 9.2
+   },
+   "wheatMain": true
+  },
+  {
+   "id": "ko_salatka_kurczak",
+   "name": "Sałatka z kurczakiem, pomidorem i grzankami z żytniego",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 15,
+   "ingredients": [
+    {
+     "id": "piers_kurczaka",
+     "g": 150
+    },
+    {
+     "id": "salata",
+     "g": 80
+    },
+    {
+     "id": "pomidor",
+     "g": 150
+    },
+    {
+     "id": "ogorek",
+     "g": 100
+    },
+    {
+     "id": "chleb_zytni",
+     "g": 60
+    },
+    {
+     "id": "oliwa",
+     "g": 10
+    },
+    {
+     "id": "jogurt",
+     "g": 40
+    }
+   ],
+   "steps": [
+    "Kurczaka usmaż / upiecz z przyprawami 6–7 min, pokrój.",
+    "Chleb pokrój w kostkę, opiecz na suchej patelni lub w tosterze.",
+    "Sos: jogurt, oliwa, musztarda, sól, pieprz. Wymieszaj wszystko."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "szybkie",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "musztarda, sól, pieprz, zioła",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 443.0,
+    "protein": 40.6,
+    "fat": 14.2,
+    "satFat": 2.6,
+    "carbs": 37.7,
+    "fiber": 8.3,
+    "cost": 10.0
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "ko_salatka_grecka",
+   "name": "Sałatka grecka z fetą i ciecierzycą + chleb",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 10,
+   "ingredients": [
+    {
+     "id": "pomidor",
+     "g": 200
+    },
+    {
+     "id": "ogorek",
+     "g": 150
+    },
+    {
+     "id": "papryka",
+     "g": 100
+    },
+    {
+     "id": "cebula_czerwona",
+     "g": 30
+    },
+    {
+     "id": "feta_light",
+     "g": 70
+    },
+    {
+     "id": "ciecierzyca",
+     "g": 100
+    },
+    {
+     "id": "oliwa",
+     "g": 10
+    },
+    {
+     "id": "chleb_zytni",
+     "g": 40
+    }
+   ],
+   "steps": [
+    "Pokrój warzywa w dużą kostkę, dodaj fetę i ciecierzycę, polej oliwą, posyp oregano."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "szybkie",
+    "bez gotowania",
+    "strączki",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "oregano",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 520.0,
+    "protein": 23.2,
+    "fat": 21.9,
+    "satFat": 7.3,
+    "carbs": 52.3,
+    "fiber": 15.2,
+    "cost": 9.0
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "ko_salatka_tunczyk",
+   "name": "Sałatka z tuńczykiem, fasolą i kukurydzą",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 7,
+   "ingredients": [
+    {
+     "id": "tunczyk",
+     "g": 120,
+     "note": "1 puszka"
+    },
+    {
+     "id": "fasola_czerwona",
+     "g": 120,
+     "note": "pół puszki"
+    },
+    {
+     "id": "kukurydza",
+     "g": 70
+    },
+    {
+     "id": "pomidor",
+     "g": 100
+    },
+    {
+     "id": "ogorek",
+     "g": 100
+    },
+    {
+     "id": "cebula_czerwona",
+     "g": 30
+    },
+    {
+     "id": "oliwa",
+     "g": 10
+    },
+    {
+     "id": "chleb_zytni",
+     "g": 40
+    }
+   ],
+   "steps": [
+    "Wszystko wymieszaj, dopraw sokiem z cytryny, solą i pieprzem. Chleb obok."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "szybkie",
+    "bez gotowania",
+    "ryba",
+    "strączki",
+    "bez pszenicy"
+   ],
+   "rating": "może",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 537.0,
+    "protein": 44.4,
+    "fat": 13.6,
+    "satFat": 2.1,
+    "carbs": 53.5,
+    "fiber": 15.5,
+    "cost": 11.4
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "ko_ziemniaki_twarozek",
+   "name": "Ziemniaki z twarożkiem i koperkiem",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 20,
+   "ingredients": [
+    {
+     "id": "ziemniaki",
+     "g": 350
+    },
+    {
+     "id": "twarog",
+     "g": 150
+    },
+    {
+     "id": "jogurt",
+     "g": 80
+    },
+    {
+     "id": "koperek",
+     "g": 10
+    },
+    {
+     "id": "ogorek",
+     "g": 150
+    }
+   ],
+   "steps": [
+    "Ugotuj ziemniaki w mundurkach lub obrane (15–18 min).",
+    "Twaróg wymieszaj z jogurtem, koperkiem, solą i pieprzem.",
+    "Ogórek obok."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "bez pszenicy"
+   ],
+   "rating": "może",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 541.0,
+    "protein": 38.9,
+    "fat": 9.3,
+    "satFat": 5.5,
+    "carbs": 74.0,
+    "fiber": 9.0,
+    "cost": 6.7
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "ko_kurczak_warzywa",
+   "name": "Kurczak z patelni z mrożonymi warzywami i odrobiną ryżu",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 15,
+   "ingredients": [
+    {
+     "id": "piers_kurczaka",
+     "g": 180
+    },
+    {
+     "id": "warzywa_patelnia",
+     "g": 300
+    },
+    {
+     "id": "olej_rzepakowy",
+     "g": 10
+    },
+    {
+     "id": "sos_sojowy",
+     "g": 15
+    },
+    {
+     "id": "ryz_basmati",
+     "g": 40
+    }
+   ],
+   "steps": [
+    "Nastaw ryż (lub ryż w woreczku 40 g).",
+    "Kurczaka w kostce smaż na oleju 5 min, dodaj mrożone warzywa, smaż 6–7 min na dużym ogniu.",
+    "Dopraw sosem sojowym i pieprzem."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "szybkie"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "tamari",
+   "perServing": {
+    "kcal": 549.0,
+    "protein": 49.1,
+    "fat": 13.5,
+    "satFat": 1.3,
+    "carbs": 56.1,
+    "fiber": 9.5,
+    "cost": 9.2
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "ko_kurczak_lidl",
+   "name": "Pieczony kurczak z Lidla + gotowa surówka (dzień bez gotowania)",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 3,
+   "ingredients": [
+    {
+     "id": "kurczak_pieczony",
+     "g": 200,
+     "note": "ok. 1/3 kurczaka, bez skóry"
+    },
+    {
+     "id": "surowka",
+     "g": 150
+    },
+    {
+     "id": "chleb_zytni",
+     "g": 40
+    }
+   ],
+   "steps": [
+    "Zdejmij skórę, porcja mięsa ok. 200 g. Reszta kurczaka na kolejną kolację / do wrapa."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "bez gotowania",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "Skóra = większość tłuszczu nasyconego — nie jemy.",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 533.0,
+    "protein": 55.9,
+    "fat": 20.6,
+    "satFat": 4.7,
+    "carbs": 27.3,
+    "fiber": 6.2,
+    "cost": 10.0
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "ko_zapiekanka_bulka",
+   "name": "Zapiekanka z bułki z pieczarkami, szynką i serem",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 15,
+   "ingredients": [
+    {
+     "id": "bulka_pelnoziarnista",
+     "g": 100
+    },
+    {
+     "id": "pieczarki",
+     "g": 150
+    },
+    {
+     "id": "cebula",
+     "g": 30
+    },
+    {
+     "id": "mozzarella_light",
+     "g": 60
+    },
+    {
+     "id": "szynka_drobiowa",
+     "g": 50
+    },
+    {
+     "id": "olej_rzepakowy",
+     "g": 5
+    }
+   ],
+   "steps": [
+    "Pieczarki z cebulą podsmaż 5 min, dopraw.",
+    "Bułkę przekrój, nałóż pieczarki, szynkę i ser.",
+    "Piecz 8 min w 220°C. Ketchup / passata opcjonalnie."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "szybkie"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "nie dla dziewczyny",
+   "perServing": {
+    "kcal": 488.0,
+    "protein": 34.2,
+    "fat": 15.1,
+    "satFat": 4.9,
+    "carbs": 55.0,
+    "fiber": 8.0,
+    "cost": 7.6
+   },
+   "wheatMain": true
+  },
+  {
+   "id": "ko_zupa_kanapka",
+   "name": "Gotowa zupa + kanapka z twarożkiem (dzień awaryjny)",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 5,
+   "ingredients": [
+    {
+     "id": "zupa_gotowa",
+     "g": 400
+    },
+    {
+     "id": "chleb_zytni",
+     "g": 80
+    },
+    {
+     "id": "szynka_drobiowa",
+     "g": 50
+    },
+    {
+     "id": "twarog",
+     "g": 50
+    }
+   ],
+   "steps": [
+    "Podgrzej zupę, zrób 2 kanapki."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "awaryjne",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 472.0,
+    "protein": 28.8,
+    "fat": 10.8,
+    "satFat": 4.1,
+    "carbs": 60.1,
+    "fiber": 10.4,
+    "cost": 7.6
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "ko_pierogi",
+   "name": "Pierogi mrożone z surówką (awaryjnie)",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 10,
+   "ingredients": [
+    {
+     "id": "pierogi",
+     "g": 200,
+     "note": "ok. 8 szt."
+    },
+    {
+     "id": "surowka",
+     "g": 150
+    }
+   ],
+   "steps": [
+    "Ugotuj pierogi wg opakowania. Bez okrasy; surówka obok."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "awaryjne"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "nie dla dziewczyny",
+   "perServing": {
+    "kcal": 545.0,
+    "protein": 15.5,
+    "fat": 18.0,
+    "satFat": 4.6,
+    "carbs": 78.5,
+    "fiber": 7.0,
+    "cost": 6.8
+   },
+   "wheatMain": true
+  },
+  {
+   "id": "ko_miska_skyr",
+   "name": "Miska skyr z owocami i płatkami (kolacja na słodko)",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 3,
+   "ingredients": [
+    {
+     "id": "skyr",
+     "g": 300
+    },
+    {
+     "id": "platki_owsiane",
+     "g": 40
+    },
+    {
+     "id": "borowki_mrozone",
+     "g": 100
+    },
+    {
+     "id": "banan",
+     "g": 60,
+     "note": "pół"
+    },
+    {
+     "id": "orzechy_wloskie",
+     "g": 10
+    }
+   ],
+   "steps": [
+    "Wszystko do miski."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "szybkie",
+    "bez gotowania",
+    "owies",
+    "bez pszenicy"
+   ],
+   "rating": "chcę",
+   "notes": "",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 516.0,
+    "protein": 41.1,
+    "fat": 10.4,
+    "satFat": 1.5,
+    "carbs": 61.3,
+    "fiber": 8.7,
+    "cost": 8.0
+   },
+   "wheatMain": false
+  },
+  {
+   "id": "ko_kanapki_makrela",
+   "name": "Kanapki z pastą z makreli wędzonej i twarożku",
+   "type": "kolacja",
+   "servings": 1,
+   "timeMin": 7,
+   "ingredients": [
+    {
+     "id": "makrela_wedzona",
+     "g": 60
+    },
+    {
+     "id": "twarog",
+     "g": 60
+    },
+    {
+     "id": "jogurt",
+     "g": 30
+    },
+    {
+     "id": "szczypiorek",
+     "g": 5
+    },
+    {
+     "id": "chleb_zytni",
+     "g": 80
+    },
+    {
+     "id": "pomidor",
+     "g": 150
+    }
+   ],
+   "steps": [
+    "Makrelę obierz ze skóry i ości, rozgnieć z twarożkiem, jogurtem, szczypiorkiem i pieprzem.",
+    "Na chleb, pomidor obok."
+   ],
+   "fridgeDays": null,
+   "freezer": false,
+   "batch": false,
+   "tags": [
+    "szybkie",
+    "bez gotowania",
+    "ryba",
+    "bez pszenicy"
+   ],
+   "rating": "propozycja",
+   "notes": "Propozycja dietetyka (nieoceniana): łatwa tłusta ryba bez gotowania.",
+   "spices": "",
+   "wheatSwap": "",
+   "perServing": {
+    "kcal": 470.0,
+    "protein": 29.9,
+    "fat": 18.8,
+    "satFat": 5.4,
+    "carbs": 43.0,
+    "fiber": 8.3,
+    "cost": 6.3
+   },
+   "wheatMain": false
+  }
+ ],
+ "sampleWeek": {
+  "label": "Tydzień 1 (niedziela–sobota)",
+  "lunchA": "lu_teriyaki",
+  "lunchB": "lu_chilli",
+  "cook": {
+   "Niedziela": "lu_teriyaki",
+   "Środa": "lu_chilli"
+  },
+  "days": [
+   {
+    "day": "Niedziela",
+    "sniadanie": "sn_jajecznica",
+    "lunch": "lu_teriyaki",
+    "przekaska": "pr_jablko_orzechy",
+    "kolacja": "ko_kanapki_twarozek",
+    "wieczor": "wi_skyr_borowki",
+    "totals": {
+     "kcal": 1972,
+     "protein": 136,
+     "satFat": 14,
+     "fiber": 32
+    }
+   },
+   {
+    "day": "Poniedziałek",
+    "sniadanie": "sn_serek_wiejski",
+    "lunch": "lu_teriyaki",
+    "przekaska": "pr_skyr_pitny",
+    "kolacja": "ko_wrap_kurczak",
+    "wieczor": "wi_jajka",
+    "totals": {
+     "kcal": 1880,
+     "protein": 164,
+     "satFat": 16,
+     "fiber": 22
+    }
+   },
+   {
+    "day": "Wtorek",
+    "sniadanie": "sn_skyr_owies",
+    "lunch": "lu_teriyaki",
+    "przekaska": "pr_warzywa_hummus",
+    "kolacja": "ko_salatka_tunczyk",
+    "wieczor": "wi_kefir",
+    "totals": {
+     "kcal": 1978,
+     "protein": 144,
+     "satFat": 10,
+     "fiber": 37
+    }
+   },
+   {
+    "day": "Środa",
+    "sniadanie": "sn_serek_wiejski",
+    "lunch": "lu_teriyaki",
+    "przekaska": "pr_banan_kefir",
+    "kolacja": "lu_chilli",
+    "wieczor": "wi_skyr_borowki",
+    "totals": {
+     "kcal": 2051,
+     "protein": 143,
+     "satFat": 16,
+     "fiber": 34
+    }
+   },
+   {
+    "day": "Czwartek",
+    "sniadanie": "sn_skyr_owies",
+    "lunch": "lu_chilli",
+    "przekaska": "pr_skyr_pitny",
+    "kolacja": "ko_tosty",
+    "wieczor": "wi_serek",
+    "totals": {
+     "kcal": 1927,
+     "protein": 149,
+     "satFat": 17,
+     "fiber": 33
+    }
+   },
+   {
+    "day": "Piątek",
+    "sniadanie": "sn_twarozek",
+    "lunch": "lu_chilli",
+    "przekaska": "pr_wafle_twarozek",
+    "kolacja": "ko_pizza_tortilla",
+    "wieczor": "wi_jablko",
+    "totals": {
+     "kcal": 1844,
+     "protein": 122,
+     "satFat": 19,
+     "fiber": 35
+    }
+   },
+   {
+    "day": "Sobota",
+    "sniadanie": "sn_serek_wiejski",
+    "lunch": "lu_chilli",
+    "przekaska": "pr_skyr_pitny",
+    "kolacja": "ko_wrap_losos",
+    "wieczor": "wi_kefir",
+    "totals": {
+     "kcal": 1895,
+     "protein": 130,
+     "satFat": 20,
+     "fiber": 32
+    }
+   }
+  ],
+  "shopping": {
+   "sobota": [
+    {
+     "id": "banan",
+     "name": "Banany",
+     "section": "Warzywa i owoce",
+     "qty": "1 szt.",
+     "need": 120,
+     "cost": 0.72
+    },
+    {
+     "id": "brokul",
+     "name": "Brokuł",
+     "section": "Warzywa i owoce",
+     "qty": "1 × 1 szt. ok. 450 g",
+     "need": 450,
+     "cost": 6.3
+    },
+    {
+     "id": "cebula",
+     "name": "Cebula",
+     "section": "Warzywa i owoce",
+     "qty": "2 szt.",
+     "need": 150,
+     "cost": 0.8
+    },
+    {
+     "id": "cebula_czerwona",
+     "name": "Cebula czerwona",
+     "section": "Warzywa i owoce",
+     "qty": "1 szt.",
+     "need": 30,
+     "cost": 0.6
+    },
+    {
+     "id": "imbir",
+     "name": "Imbir świeży",
+     "section": "Warzywa i owoce",
+     "qty": "1 × kawałek ok. 100 g",
+     "need": 15,
+     "cost": 2.5
+    },
+    {
+     "id": "jablko",
+     "name": "Jabłka",
+     "section": "Warzywa i owoce",
+     "qty": "2 szt.",
+     "need": 360,
+     "cost": 1.62
+    },
+    {
+     "id": "marchew",
+     "name": "Marchew",
+     "section": "Warzywa i owoce",
+     "qty": "4 szt.",
+     "need": 260,
+     "cost": 1.28
+    },
+    {
+     "id": "ogorek",
+     "name": "Ogórek",
+     "section": "Warzywa i owoce",
+     "qty": "2 szt.",
+     "need": 440,
+     "cost": 4.0
+    },
+    {
+     "id": "papryka",
+     "name": "Papryka",
+     "section": "Warzywa i owoce",
+     "qty": "4 szt.",
+     "need": 710,
+     "cost": 11.2
+    },
+    {
+     "id": "pomidor",
+     "name": "Pomidory",
+     "section": "Warzywa i owoce",
+     "qty": "8 szt.",
+     "need": 860,
+     "cost": 9.6
+    },
+    {
+     "id": "rzodkiewka",
+     "name": "Rzodkiewka",
+     "section": "Warzywa i owoce",
+     "qty": "2 × pęczek ok. 150 g",
+     "need": 230,
+     "cost": 3.6
+    },
+    {
+     "id": "salata",
+     "name": "Sałata / mix sałat",
+     "section": "Warzywa i owoce",
+     "qty": "1 × opak. 150 g",
+     "need": 40,
+     "cost": 3.75
+    },
+    {
+     "id": "szczypiorek",
+     "name": "Szczypiorek",
+     "section": "Warzywa i owoce",
+     "qty": "2 × pęczek",
+     "need": 30,
+     "cost": 4.0
+    },
+    {
+     "id": "chleb_zytni",
+     "name": "Chleb żytni razowy (100% żyto)",
+     "section": "Pieczywo",
+     "qty": "2 × bochenek 500 g",
+     "need": 680,
+     "cost": 11.0
+    },
+    {
+     "id": "tortilla",
+     "name": "Tortilla pełnoziarnista",
+     "section": "Pieczywo",
+     "qty": "1 × opak. 6 szt.",
+     "need": 186,
+     "cost": 7.77
+    },
+    {
+     "id": "hummus",
+     "name": "Hummus",
+     "section": "Nabiał i jajka",
+     "qty": "1 × kubek 200 g",
+     "need": 100,
+     "cost": 6.0
+    },
+    {
+     "id": "jajko",
+     "name": "Jajka (M/L)",
+     "section": "Nabiał i jajka",
+     "qty": "1 × opak. 10 szt.",
+     "need": 300,
+     "cost": 10.2
+    },
+    {
+     "id": "jogurt",
+     "name": "Jogurt naturalny 2%",
+     "section": "Nabiał i jajka",
+     "qty": "1 × kubek 400 g",
+     "need": 145,
+     "cost": 4.0
+    },
+    {
+     "id": "kefir",
+     "name": "Kefir",
+     "section": "Nabiał i jajka",
+     "qty": "2 × butelka 400 g",
+     "need": 750,
+     "cost": 5.6
+    },
+    {
+     "id": "mozzarella_light",
+     "name": "Mozzarella light",
+     "section": "Nabiał i jajka",
+     "qty": "1 × kulka 125 g",
+     "need": 70,
+     "cost": 3.75
+    },
+    {
+     "id": "ser_light",
+     "name": "Ser żółty light (plastry)",
+     "section": "Nabiał i jajka",
+     "qty": "1 × opak. 150 g",
+     "need": 40,
+     "cost": 6.3
+    },
+    {
+     "id": "serek_wiejski",
+     "name": "Serek wiejski",
+     "section": "Nabiał i jajka",
+     "qty": "4 × kubek 200 g",
+     "need": 750,
+     "cost": 12.0
+    },
+    {
+     "id": "skyr",
+     "name": "Skyr naturalny",
+     "section": "Nabiał i jajka",
+     "qty": "2 × kubek 450 g",
+     "need": 800,
+     "cost": 13.5
+    },
+    {
+     "id": "skyr_pitny",
+     "name": "Skyr pitny / napój proteinowy",
+     "section": "Nabiał i jajka",
+     "qty": "3 × butelka 350 g",
+     "need": 1050,
+     "cost": 15.75
+    },
+    {
+     "id": "twarog",
+     "name": "Twaróg półtłusty",
+     "section": "Nabiał i jajka",
+     "qty": "2 × kostka 250 g",
+     "need": 360,
+     "cost": 9.0
+    },
+    {
+     "id": "piers_kurczaka",
+     "name": "Pierś z kurczaka",
+     "section": "Mięso i ryby",
+     "qty": "2 × tacka ok. 500 g",
+     "need": 850,
+     "cost": 28.0
+    },
+    {
+     "id": "borowki_mrozone",
+     "name": "Borówki / owoce leśne mrożone",
+     "section": "Mrożonki",
+     "qty": "1 × opak. 450 g",
+     "need": 320,
+     "cost": 10.8
+    },
+    {
+     "id": "orzechy_wloskie",
+     "name": "Orzechy włoskie",
+     "section": "Kasze, ryż, makarony, płatki",
+     "qty": "1 × opak. 200 g",
+     "need": 60,
+     "cost": 10.0
+    },
+    {
+     "id": "platki_owsiane",
+     "name": "Płatki owsiane górskie",
+     "section": "Kasze, ryż, makarony, płatki",
+     "qty": "1 × opak. 500 g",
+     "need": 80,
+     "cost": 3.0
+    },
+    {
+     "id": "wafle_ryzowe",
+     "name": "Wafle ryżowe",
+     "section": "Kasze, ryż, makarony, płatki",
+     "qty": "1 × opak. 130 g",
+     "need": 30,
+     "cost": 3.25
+    },
+    {
+     "id": "fasola_czerwona",
+     "name": "Fasola czerwona (puszka, odsączona)",
+     "section": "Puszki i słoiki",
+     "qty": "3 × puszka 400 g (240 g po odsączeniu)",
+     "need": 600,
+     "cost": 9.36
+    },
+    {
+     "id": "koncentrat",
+     "name": "Koncentrat pomidorowy",
+     "section": "Puszki i słoiki",
+     "qty": "1 × słoik 190 g",
+     "need": 30,
+     "cost": 4.75
+    },
+    {
+     "id": "kukurydza",
+     "name": "Kukurydza (puszka, odsączona)",
+     "section": "Puszki i słoiki",
+     "qty": "1 × puszka 400 g (280 g po odsączeniu)",
+     "need": 210,
+     "cost": 3.92
+    },
+    {
+     "id": "passata",
+     "name": "Passata pomidorowa",
+     "section": "Puszki i słoiki",
+     "qty": "1 × butelka 700 g",
+     "need": 60,
+     "cost": 4.2
+    },
+    {
+     "id": "pomidory_puszka",
+     "name": "Pomidory krojone (puszka)",
+     "section": "Puszki i słoiki",
+     "qty": "2 × puszka 400 g",
+     "need": 800,
+     "cost": 5.6
+    },
+    {
+     "id": "tunczyk",
+     "name": "Tuńczyk w sosie własnym (odsączony)",
+     "section": "Puszki i słoiki",
+     "qty": "1 × puszka 170 g (120 g po odsączeniu)",
+     "need": 120,
+     "cost": 6.0
+    },
+    {
+     "id": "skrobia",
+     "name": "Mąka ziemniaczana",
+     "section": "Sosy, oleje, przyprawy",
+     "qty": "1 × opak. 500 g",
+     "need": 10,
+     "cost": 4.0
+    },
+    {
+     "id": "olej_rzepakowy",
+     "name": "Olej rzepakowy",
+     "section": "Sosy, oleje, przyprawy",
+     "qty": "1 × butelka 1 l",
+     "need": 40,
+     "cost": 9.0
+    }
+   ],
+   "środa": [
+    {
+     "id": "pieczarki",
+     "name": "Pieczarki",
+     "section": "Warzywa i owoce",
+     "qty": "1 × opak. 250 g",
+     "need": 60,
+     "cost": 3.25
+    },
+    {
+     "id": "szynka_drobiowa",
+     "name": "Szynka / polędwica drobiowa",
+     "section": "Mięso i ryby",
+     "qty": "1 × opak. 150 g",
+     "need": 120,
+     "cost": 6.75
+    },
+    {
+     "id": "wolowina_mielona",
+     "name": "Wołowina mielona chuda (do 10% tł.)",
+     "section": "Mięso i ryby",
+     "qty": "1 × tacka 400 g",
+     "need": 400,
+     "cost": 16.8
+    },
+    {
+     "id": "losos_wedzony",
+     "name": "Łosoś wędzony (plastry)",
+     "section": "Mięso i ryby",
+     "qty": "1 × opak. 100 g",
+     "need": 70,
+     "cost": 9.5
+    }
+   ],
+   "spiżarniaDoSprawdzenia": [
+    "Czosnek",
+    "Miód",
+    "Oliwa z oliwek",
+    "Ryż basmati / jaśminowy",
+    "Sezam",
+    "Sos sojowy"
+   ],
+   "kosztZużyciaZł": 207,
+   "kosztWSklepieZł": 293
+  }
+ },
+ "quickLogPresets": [
+  {
+   "name": "Kanapka z piekarni / 7days",
+   "kcal": 400
+  },
+  {
+   "name": "Danie z Żabki",
+   "kcal": 600
+  },
+  {
+   "name": "Zestaw McDonald's",
+   "kcal": 1000
+  },
+  {
+   "name": "Schabowy z ziemniakami (bar mleczny)",
+   "kcal": 900
+  },
+  {
+   "name": "Kebab",
+   "kcal": 900
+  },
+  {
+   "name": "Pierogi z garmażerki (porcja)",
+   "kcal": 600
+  },
+  {
+   "name": "Słoik od mamy — bigos (300 g)",
+   "kcal": 400
+  },
+  {
+   "name": "Słoik od mamy — gołąbki (2 szt.)",
+   "kcal": 450
+  },
+  {
+   "name": "Batonik / słodycz",
+   "kcal": 250
+  },
+  {
+   "name": "Napój słodzony 0,5 l",
+   "kcal": 210
+  }
+ ],
+ "labs": {
+  "date": "2026-08-06",
+  "fasting": true,
+  "results": {
+   "glukoza": "90,4 mg/dl",
+   "cholesterol całkowity": "219,6 mg/dl",
+   "HDL": "38,8 mg/dl",
+   "nie-HDL": "180,8 mg/dl",
+   "LDL": "153,7 mg/dl",
+   "trójglicerydy": "148,4 mg/dl",
+   "Lp(a)": "157,4 nmol/l (73,96 mg/dl)",
+   "TSH": "1,57",
+   "ALT/AST/GGTP": "w normie",
+   "kreatynina/eGFR": "w normie"
+  },
+  "followUp": "konsultacja lekarska (internista/kardiolog) + kontrolny lipidogram na czczo ok. 3 mies. od startu diety"
+ }
+}
